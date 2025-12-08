@@ -14,7 +14,7 @@
     "test:unit:watch": "vitest",
     "test:e2e": "playwright test",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,css,md,json}\"",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.17",

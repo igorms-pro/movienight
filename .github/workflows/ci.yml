@@ -39,16 +39,5 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps
 
-      - name: Build
-        run: pnpm run build
-
-      - name: Run E2E (chromium)
-        env:
-          PORT: 3000
-        run: |
-          pnpm run build
-          pnpm run start -- --hostname 0.0.0.0 --port $PORT &
-          SERVER_PID=$!
-          pnpm dlx wait-on http://127.0.0.1:$PORT
-          pnpm exec playwright test --project=chromium
-          kill $SERVER_PID
+      - name: E2E (chromium)
+        run: pnpm exec playwright test --project=chromium
