@@ -139,8 +139,18 @@ export default function SearchBar() {
                   style={{ background: "transparent", border: "none", padding: 0 }}
                 >
                   <div
-                    className="flex items-center gap-3 px-4 py-3 hover:bg-[var(--hover-surface)]"
-                    style={{ color: "var(--text-primary)" }}
+                    className="flex items-center gap-3 px-4 py-3"
+                    style={{
+                      color: "var(--text-primary)",
+                      transition: "background-color 120ms ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLDivElement).style.backgroundColor =
+                        "var(--hover-surface)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLDivElement).style.backgroundColor = "transparent";
+                    }}
                   >
                     <div
                       className="relative w-10 h-14 rounded-md overflow-hidden shrink-0"
@@ -162,9 +172,15 @@ export default function SearchBar() {
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="font-semibold truncate">{movie.title}</div>
-                      {year && <div className="text-sm text-[var(--text-secondary)]">{year}</div>}
+                      {year && (
+                        <div className="text-sm" style={{ color: "var(--text-secondary)" }}>
+                          {year}
+                        </div>
+                      )}
                     </div>
-                    <div className="ml-auto text-lg text-[var(--text-secondary)]">→</div>
+                    <div className="ml-auto text-lg" style={{ color: "var(--text-secondary)" }}>
+                      →
+                    </div>
                   </div>
                 </button>
               );

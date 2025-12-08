@@ -22,7 +22,10 @@ export default function Header() {
       }}
     >
       <div className="app-container flex items-center justify-between gap-4 py-5">
-        <h1 className="text-[32px] font-bold text-[var(--text-primary)] uppercase tracking-[2px] m-0">
+        <h1
+          className="text-[32px] font-bold uppercase tracking-[2px] m-0"
+          style={{ color: "var(--text-primary)" }}
+        >
           MOVIENIGHT
         </h1>
         <div className="flex items-center gap-3 w-[436px] max-[1280px]:w-full max-[1280px]:max-w-[436px]">
