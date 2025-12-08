@@ -14,6 +14,9 @@ dependencies:
   baseui:
     specifier: ^12.2.0
     version: 12.2.0(@types/react@18.3.27)(react-dom@18.3.1)(react@18.3.1)(styletron-react@6.1.1)
+  lucide-react:
+    specifier: ^0.556.0
+    version: 0.556.0(react@18.3.1)
   next:
     specifier: ^14.2.5
     version: 14.2.33(@playwright/test@1.57.0)(react-dom@18.3.1)(react@18.3.1)
@@ -4024,6 +4027,14 @@ packages:
   /lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
     dev: true
+
+  /lucide-react@0.556.0(react@18.3.1):
+    resolution: {integrity: sha512-iOb8dRk7kLaYBZhR2VlV1CeJGxChBgUthpSP8wom9jfj79qovgG6qcSdiy6vkoREKPnbUYzJsCn4o4PtG3Iy+A==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+    dependencies:
+      react: 18.3.1
+    dev: false
 
   /lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}

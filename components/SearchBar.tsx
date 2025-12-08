@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Input, SIZE as INPUT_SIZE } from "baseui/input";
-import { Search as SearchIcon } from "baseui/icon";
+import { Search as SearchIcon, X as XIcon } from "lucide-react";
 import { useSearchMovies } from "@/hooks/useTmdb";
 import { useMovieStore } from "@/store/movieStore";
 
@@ -44,7 +44,7 @@ export default function SearchBar() {
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-[520px] max-w-full max-[1280px]:w-[460px] max-[1024px]:w-full">
       <Input
         value={query}
         onFocus={() => setOpen(true)}
@@ -60,7 +60,7 @@ export default function SearchBar() {
         }}
         placeholder="Rechercher un film, un réalisateur, un acteur"
         size={INPUT_SIZE.large}
-        startEnhancer={() => <SearchIcon size={20} />}
+        startEnhancer={() => <SearchIcon size={22} color="var(--text-primary)" strokeWidth={1.5} />}
         endEnhancer={() =>
           query.length > 0 ? (
             <button
@@ -71,36 +71,57 @@ export default function SearchBar() {
                 setOpen(false);
               }}
               aria-label="Effacer"
-              className="w-7 h-7 rounded-full flex items-center justify-center border transition-colors"
+              className="w-7 h-7 rounded-full flex items-center justify-center transition-colors"
               style={{
-                backgroundColor: "var(--surface-strong)",
-                borderColor: "var(--border-strong)",
-                color: "var(--text-secondary)",
+                backgroundColor: "rgba(255,255,255,0.15)",
+                border: "1px solid rgba(255,255,255,0.4)",
+                color: "var(--text-primary)",
               }}
             >
-              ✕
+              <XIcon size={14} strokeWidth={2} />
             </button>
           ) : null
         }
         overrides={{
           Root: {
             style: {
-              borderTopLeftRadius: "14px",
-              borderTopRightRadius: "14px",
-              borderBottomLeftRadius: "14px",
-              borderBottomRightRadius: "14px",
-              backgroundColor: "var(--input-bg)",
+              borderRadius: "22px",
+              backgroundColor: "rgba(255, 255, 255, 0.18)",
+              color: "var(--text-primary)",
+              border: "1px solid rgba(255, 255, 255, 0.4)",
+              boxShadow: "0 0 0 1px rgba(255, 255, 255, 0.1)",
+              paddingLeft: "0px",
+              paddingRight: "0px",
             },
           },
           InputContainer: {
             style: {
               backgroundColor: "transparent",
+              paddingLeft: "0px",
+              paddingRight: "0px",
             },
           },
           Input: {
             style: {
               backgroundColor: "transparent",
               color: "var(--text-primary)",
+              "::placeholder": {
+                color: "rgba(255, 255, 255, 0.82)",
+              },
+            },
+          },
+          StartEnhancer: {
+            style: {
+              backgroundColor: "transparent",
+              paddingLeft: "16px",
+              paddingRight: "12px",
+            },
+          },
+          EndEnhancer: {
+            style: {
+              backgroundColor: "transparent",
+              paddingLeft: "12px",
+              paddingRight: "16px",
             },
           },
         }}

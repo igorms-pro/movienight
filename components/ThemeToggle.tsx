@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Moon, Sun } from "lucide-react";
 
 type Theme = "dark" | "light";
 
@@ -27,14 +28,14 @@ export default function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label="Basculer le thème"
-      className="w-11 h-11 rounded-full flex items-center justify-center border transition-colors"
+      className="w-12 h-12 rounded-full flex items-center justify-center transition-colors cursor-pointer"
       style={{
-        backgroundColor: "var(--surface-strong)",
-        borderColor: "var(--border-strong)",
+        backgroundColor: "transparent",
+        border: "none",
         color: "var(--text-primary)",
       }}
     >
-      {theme === "dark" ? "☀️" : "🌙"}
+      {theme === "dark" ? <Sun size={26} /> : <Moon size={26} />}
     </button>
   );
 }

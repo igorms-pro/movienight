@@ -97,5 +97,13 @@ a {
 }
 
 .app-container {
-  width: min(1120px, calc(100% - 32px));
+  width: calc(100% / 1.5);
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .app-container {
+    width: 100%;
+  }
 }
