@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import SearchBar from "@/components/SearchBar";
-import ThemeToggle from "@/components/ThemeToggle";
+import SearchBar from "./SearchBar";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
