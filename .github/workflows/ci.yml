@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-type-test-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Type check
+        run: pnpm run typecheck
+
+      - name: Unit tests
+        run: pnpm run test
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Run E2E (chromium)
+        env:
+          PORT: 3000
+        run: |
+          pnpm run build
+          pnpm run start -- --hostname 0.0.0.0 --port $PORT &
+          SERVER_PID=$!
+          pnpm dlx wait-on http://127.0.0.1:$PORT
+          pnpm exec playwright test --project=chromium
+          kill $SERVER_PID
