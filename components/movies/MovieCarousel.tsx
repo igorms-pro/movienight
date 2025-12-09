@@ -101,34 +101,36 @@ export default function MovieCarousel({
   return (
     <div className="w-full mb-[60px]">
       <h2 className="text-2xl font-semibold mb-4 text-white">{title}</h2>
-      <div className="relative max-w-[1150px] mx-auto px-4">
-        <Button
-          onClick={() => canScrollLeft && scroll("left")}
-          kind={BTN_KIND.secondary}
-          size={BTN_SIZE.compact}
-          shape={BTN_SHAPE.pill}
-          disabled={!canScrollLeft}
-          overrides={{
-            BaseButton: {
-              style: ({ $disabled }) => ({
-                position: "absolute",
-                left: "-64px",
-                top: "35%",
-                transform: "translateY(-50%)",
-                zIndex: 10,
-                width: "48px",
-                height: "40px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                opacity: $disabled ? 0.3 : 1,
-              }),
-            },
-          }}
-          aria-label="Scroll left"
-        >
-          <ArrowLeft size={24} />
-        </Button>
+      <div className="relative max-w-[1150px] mx-auto px-3 md:px-4">
+        <div className="hidden md:block">
+          <Button
+            onClick={() => canScrollLeft && scroll("left")}
+            kind={BTN_KIND.secondary}
+            size={BTN_SIZE.compact}
+            shape={BTN_SHAPE.pill}
+            disabled={!canScrollLeft}
+            overrides={{
+              BaseButton: {
+                style: ({ $disabled }) => ({
+                  position: "absolute",
+                  left: "-64px",
+                  top: "35%",
+                  transform: "translateY(-50%)",
+                  zIndex: 10,
+                  width: "48px",
+                  height: "40px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  opacity: $disabled ? 0.3 : 1,
+                }),
+              },
+            }}
+            aria-label="Scroll left"
+          >
+            <ArrowLeft size={24} />
+          </Button>
+        </div>
 
         <div
           ref={scrollContainerRef}
@@ -145,7 +147,7 @@ export default function MovieCarousel({
               <div
                 key={movie.id}
                 ref={cardRef}
-                className={`shrink-0 mx-[8px] w-[190px] md:w-[175px] sm:w-[150px] transition-transform duration-200 ${
+                className={`shrink-0 mx-[8px] w-[170px] md:w-[175px] sm:w-[150px] max-[480px]:w-[140px] transition-transform duration-200 ${
                   isScrolling ? "opacity-100" : isPartiallyVisible ? "opacity-40" : "opacity-100"
                 }`}
               >
@@ -159,33 +161,56 @@ export default function MovieCarousel({
           })}
         </div>
 
-        <Button
-          onClick={() => canScrollRight && scroll("right")}
-          kind={BTN_KIND.secondary}
-          size={BTN_SIZE.compact}
-          shape={BTN_SHAPE.pill}
-          disabled={!canScrollRight}
-          overrides={{
-            BaseButton: {
-              style: ({ $disabled }) => ({
-                position: "absolute",
-                right: "-64px",
-                top: "35%",
-                transform: "translateY(-50%)",
-                zIndex: 10,
-                width: "48px",
-                height: "40px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                opacity: $disabled ? 0.3 : 1,
-              }),
-            },
-          }}
-          aria-label="Scroll right"
-        >
-          <ArrowRight size={24} />
-        </Button>
+        <div className="hidden md:block">
+          <Button
+            onClick={() => canScrollRight && scroll("right")}
+            kind={BTN_KIND.secondary}
+            size={BTN_SIZE.compact}
+            shape={BTN_SHAPE.pill}
+            disabled={!canScrollRight}
+            overrides={{
+              BaseButton: {
+                style: ({ $disabled }) => ({
+                  position: "absolute",
+                  right: "-64px",
+                  top: "35%",
+                  transform: "translateY(-50%)",
+                  zIndex: 10,
+                  width: "48px",
+                  height: "40px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  opacity: $disabled ? 0.3 : 1,
+                }),
+              },
+            }}
+            aria-label="Scroll right"
+          >
+            <ArrowRight size={24} />
+          </Button>
+        </div>
+
+        <div className="mt-3 flex justify-center gap-3 md:hidden">
+          <Button
+            onClick={() => scroll("left")}
+            kind={BTN_KIND.secondary}
+            size={BTN_SIZE.compact}
+            shape={BTN_SHAPE.pill}
+            disabled={!canScrollLeft}
+          >
+            <ArrowLeft size={20} />
+          </Button>
+          <Button
+            onClick={() => scroll("right")}
+            kind={BTN_KIND.secondary}
+            size={BTN_SIZE.compact}
+            shape={BTN_SHAPE.pill}
+            disabled={!canScrollRight}
+          >
+            <ArrowRight size={20} />
+          </Button>
+        </div>
       </div>
     </div>
   );

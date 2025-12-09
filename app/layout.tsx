@@ -19,8 +19,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <div className="app-hero" />
         <Providers>
           <Header />
-          <main className="app-shell">
-            <div className="app-container">{children}</div>
+          <main className="min-h-screen flex flex-col items-center pt-12 sm:pt-[120px]">
+            <div className="w-full max-w-[1180px] px-3 md:px-0">{children}</div>
           </main>
         </Providers>
       </body>

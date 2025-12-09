@@ -87,11 +87,3 @@ a {
   pointer-events: none;
   z-index: -1;
 }
-
-.app-shell {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 120px;
-}
