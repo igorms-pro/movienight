@@ -1,12 +1,1 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-# Load NVM if available
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
-
-# Ensure pnpm global bin is on PATH
-export PATH="$PATH:$HOME/.local/share/pnpm"
-
-pnpm lint-staged
+pnpm exec lint-staged
