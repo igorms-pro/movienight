@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import dynamic from "next/dynamic";
 import LoadingSpinner from "@/components/feedback/LoadingSpinner";
 import { useFeaturedMovies, useNowPlayingMovies, useTopRatedMovies } from "@/hooks/useMovies";
