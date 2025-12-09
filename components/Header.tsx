@@ -23,16 +23,23 @@ export default function Header() {
         boxShadow: isScrolled ? "var(--header-shadow)" : "none",
       }}
     >
-      <div className="app-container header-bar">
-        <h1
-          className="text-[32px] font-bold uppercase tracking-[2px] m-0"
-          style={{ color: "var(--text-primary)" }}
-        >
-          MOVIENIGHT
-        </h1>
-        <div className="header-actions">
-          <ThemeToggle />
-          <div className="search-wrapper">
+      <div className="w-full lg:w-[calc(100%/1.5)] lg:max-w-[1320px] mx-auto flex flex-col gap-1 py-2 sm:py-5 px-[12px] lg:px-0 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex w-full items-center justify-between">
+          <h1
+            className="text-[20px] lg:text-[32px] font-bold uppercase tracking-[2px] m-0"
+            style={{ color: "var(--text-primary)" }}
+          >
+            MOVIENIGHT
+          </h1>
+          <div className="lg:hidden">
+            <ThemeToggle />
+          </div>
+        </div>
+        <div className="flex w-full items-center gap-4 lg:w-auto lg:items-center">
+          <div className="hidden lg:flex">
+            <ThemeToggle />
+          </div>
+          <div className="flex-1 lg:w-[520px]">
             <SearchBar />
           </div>
         </div>

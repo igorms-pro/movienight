@@ -85,7 +85,7 @@ export default function SearchBar() {
         overrides={{
           Root: {
             style: {
-              borderRadius: "22px",
+              borderRadius: "8px",
               backgroundColor: "rgba(255, 255, 255, 0.18)",
               color: "var(--text-primary)",
               border: "1px solid rgba(255, 255, 255, 0.4)",
