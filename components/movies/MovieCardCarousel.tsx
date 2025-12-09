@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Card, StyledBody } from "baseui/card";
 import { Skeleton } from "baseui/skeleton";
 import { Movie, MovieDetails } from "@/lib/tmdb/types";
 
@@ -49,6 +48,7 @@ export default function MovieCardCarousel({
             src={src}
             alt={title}
             fill
+            sizes="(max-width: 900px) 150px, (max-width: 1200px) 175px, 190px"
             style={{ objectFit: "cover", borderRadius: "4px" }}
             onLoad={() => setLoaded(true)}
             onError={() => setLoaded(true)}
@@ -73,42 +73,24 @@ export default function MovieCardCarousel({
   const rating = showRating ? Math.round(movie.vote_average * 10) : null;
 
   return (
-    <Card
-      overrides={{
-        Root: {
-          style: () => ({
-            cursor: "pointer",
-            backgroundColor: "transparent",
-            border: "none",
-            boxShadow: "none",
-            overflow: "hidden",
-            width: "190px",
-            transition: "transform 200ms ease, box-shadow 200ms ease",
-            "@media (max-width: 1200px)": { width: "175px" },
-            "@media (max-width: 900px)": { width: "150px" },
-            ":hover": {
-              transform: "translateY(-4px)",
-              boxShadow: "0 6px 12px rgba(0,0,0,0.35)",
-            },
-          }),
-          props: {
-            onClick: () => router.push(`/movie/${movie.id}`),
-          },
-        },
-        Contents: {
-          style: {
-            padding: "12px",
-          },
-        },
-        HeaderImage: {
-          component: ({ src }: { src?: string }) => <Poster src={src} title={movie.title} />,
-        },
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={() => router.push(`/movie/${movie.id}`)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          router.push(`/movie/${movie.id}`);
+        }
       }}
-      headerImage={
-        movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : undefined
-      }
+      className="cursor-pointer bg-transparent overflow-hidden w-[190px] max-[1200px]:w-[175px] max-[900px]:w-[150px] transition-transform duration-200 hover:-translate-y-1 hover:shadow-[0_6px_12px_rgba(0,0,0,0.35)] focus:outline-none"
     >
-      <StyledBody>
+      <Poster
+        src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : undefined}
+        title={movie.title}
+      />
+
+      <div className="p-3">
         <h3 className="text-sm font-semibold mb-2 overflow-hidden text-ellipsis whitespace-nowrap text-white leading-[1.4]">
           {movie.title}
         </h3>
@@ -129,7 +111,7 @@ export default function MovieCardCarousel({
             <p className="text-xs text-[#999]">{new Date(movie.release_date).getFullYear()}</p>
           )
         )}
-      </StyledBody>
-    </Card>
+      </div>
+    </div>
   );
 }

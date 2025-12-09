@@ -77,7 +77,18 @@ export default function SearchBar() {
                 className="w-7 h-7 rounded-full flex items-center justify-center transition-colors"
                 style={{
                   backgroundColor: "rgba(255,255,255,0.15)",
-                  border: "1px solid rgba(255,255,255,0.4)",
+                  borderTopWidth: "1px",
+                  borderRightWidth: "1px",
+                  borderBottomWidth: "1px",
+                  borderLeftWidth: "1px",
+                  borderTopStyle: "solid",
+                  borderRightStyle: "solid",
+                  borderBottomStyle: "solid",
+                  borderLeftStyle: "solid",
+                  borderTopColor: "rgba(255,255,255,0.4)",
+                  borderRightColor: "rgba(255,255,255,0.4)",
+                  borderBottomColor: "rgba(255,255,255,0.4)",
+                  borderLeftColor: "rgba(255,255,255,0.4)",
                   color: "var(--text-primary)",
                 }}
               >
@@ -88,10 +99,24 @@ export default function SearchBar() {
           overrides={{
             Root: {
               style: {
-                borderRadius: "8px",
+                borderTopLeftRadius: "8px",
+                borderTopRightRadius: "8px",
+                borderBottomRightRadius: "8px",
+                borderBottomLeftRadius: "8px",
                 backgroundColor: "rgba(255, 255, 255, 0.18)",
                 color: "var(--text-primary)",
-                border: "1px solid rgba(255, 255, 255, 0.4)",
+                borderTopWidth: "1px",
+                borderRightWidth: "1px",
+                borderBottomWidth: "1px",
+                borderLeftWidth: "1px",
+                borderTopStyle: "solid",
+                borderRightStyle: "solid",
+                borderBottomStyle: "solid",
+                borderLeftStyle: "solid",
+                borderTopColor: "rgba(255, 255, 255, 0.4)",
+                borderRightColor: "rgba(255, 255, 255, 0.4)",
+                borderBottomColor: "rgba(255, 255, 255, 0.4)",
+                borderLeftColor: "rgba(255, 255, 255, 0.4)",
                 boxShadow: "0 0 0 1px rgba(255, 255, 255, 0.1)",
                 paddingLeft: "0px",
                 paddingRight: "0px",
