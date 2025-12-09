@@ -45,87 +45,92 @@ export default function SearchBar() {
 
   return (
     <div className="relative w-[520px] max-w-full max-[1280px]:w-[460px] max-[1024px]:w-full">
-      <Input
-        value={query}
-        onFocus={() => setOpen(true)}
-        onBlur={() => setTimeout(() => setOpen(false), 150)}
-        onChange={(e) => setQuery((e.target as HTMLInputElement).value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            handleSearch(query);
+      <div className="h-[37px] sm:h-[40px] md:h-[45px]">
+        <Input
+          value={query}
+          onFocus={() => setOpen(true)}
+          onBlur={() => setTimeout(() => setOpen(false), 150)}
+          onChange={(e) => setQuery((e.target as HTMLInputElement).value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSearch(query);
+            }
+            if (e.key === "Escape") {
+              setOpen(false);
+            }
+          }}
+          placeholder="Rechercher un film, un réalisateur, un acteur"
+          size={INPUT_SIZE.large}
+          startEnhancer={() => (
+            <SearchIcon size={22} color="var(--text-primary)" strokeWidth={1.5} />
+          )}
+          endEnhancer={() =>
+            query.length > 0 ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setQuery("");
+                  setDebounced("");
+                  setOpen(false);
+                }}
+                aria-label="Effacer"
+                className="w-7 h-7 rounded-full flex items-center justify-center transition-colors"
+                style={{
+                  backgroundColor: "rgba(255,255,255,0.15)",
+                  border: "1px solid rgba(255,255,255,0.4)",
+                  color: "var(--text-primary)",
+                }}
+              >
+                <XIcon size={14} strokeWidth={2} />
+              </button>
+            ) : null
           }
-          if (e.key === "Escape") {
-            setOpen(false);
-          }
-        }}
-        placeholder="Rechercher un film, un réalisateur, un acteur"
-        size={INPUT_SIZE.large}
-        startEnhancer={() => <SearchIcon size={22} color="var(--text-primary)" strokeWidth={1.5} />}
-        endEnhancer={() =>
-          query.length > 0 ? (
-            <button
-              type="button"
-              onClick={() => {
-                setQuery("");
-                setDebounced("");
-                setOpen(false);
-              }}
-              aria-label="Effacer"
-              className="w-7 h-7 rounded-full flex items-center justify-center transition-colors"
-              style={{
-                backgroundColor: "rgba(255,255,255,0.15)",
-                border: "1px solid rgba(255,255,255,0.4)",
+          overrides={{
+            Root: {
+              style: {
+                borderRadius: "8px",
+                backgroundColor: "rgba(255, 255, 255, 0.18)",
                 color: "var(--text-primary)",
-              }}
-            >
-              <XIcon size={14} strokeWidth={2} />
-            </button>
-          ) : null
-        }
-        overrides={{
-          Root: {
-            style: {
-              borderRadius: "8px",
-              backgroundColor: "rgba(255, 255, 255, 0.18)",
-              color: "var(--text-primary)",
-              border: "1px solid rgba(255, 255, 255, 0.4)",
-              boxShadow: "0 0 0 1px rgba(255, 255, 255, 0.1)",
-              paddingLeft: "0px",
-              paddingRight: "0px",
-            },
-          },
-          InputContainer: {
-            style: {
-              backgroundColor: "transparent",
-              paddingLeft: "0px",
-              paddingRight: "0px",
-            },
-          },
-          Input: {
-            style: {
-              backgroundColor: "transparent",
-              color: "var(--text-primary)",
-              "::placeholder": {
-                color: "rgba(255, 255, 255, 0.82)",
+                border: "1px solid rgba(255, 255, 255, 0.4)",
+                boxShadow: "0 0 0 1px rgba(255, 255, 255, 0.1)",
+                paddingLeft: "0px",
+                paddingRight: "0px",
+                height: "100%",
               },
             },
-          },
-          StartEnhancer: {
-            style: {
-              backgroundColor: "transparent",
-              paddingLeft: "16px",
-              paddingRight: "12px",
+            InputContainer: {
+              style: {
+                backgroundColor: "transparent",
+                paddingLeft: "0px",
+                paddingRight: "0px",
+              },
             },
-          },
-          EndEnhancer: {
-            style: {
-              backgroundColor: "transparent",
-              paddingLeft: "12px",
-              paddingRight: "16px",
+            Input: {
+              style: {
+                backgroundColor: "transparent",
+                color: "var(--text-primary)",
+                "::placeholder": {
+                  color: "rgba(255, 255, 255, 0.82)",
+                },
+              },
             },
-          },
-        }}
-      />
+            StartEnhancer: {
+              style: {
+                backgroundColor: "transparent",
+                paddingLeft: "16px",
+                paddingRight: "12px",
+              },
+            },
+            EndEnhancer: {
+              style: {
+                backgroundColor: "transparent",
+                paddingLeft: "12px",
+                paddingRight: "16px",
+              },
+            },
+          }}
+        />
+      </div>
 
       {open && suggestions.length > 0 && (
         <div
