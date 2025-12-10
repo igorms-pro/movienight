@@ -10,12 +10,14 @@ type Props = {
   movie: Movie | MovieDetails;
   showRating?: boolean;
   showDuration?: boolean;
+  className?: string;
 };
 
 export default function MovieCardCarousel({
   movie,
   showRating = false,
   showDuration = false,
+  className,
 }: Props) {
   const router = useRouter();
 
@@ -83,7 +85,9 @@ export default function MovieCardCarousel({
           router.push(`/movie/${movie.id}`);
         }
       }}
-      className="cursor-pointer bg-transparent overflow-hidden w-[190px] max-[1200px]:w-[175px] max-[900px]:w-[150px] transition-transform duration-200 hover:-translate-y-1 hover:shadow-[0_6px_12px_rgba(0,0,0,0.35)] focus:outline-none"
+      className={`cursor-pointer bg-transparent overflow-hidden transition-transform duration-200 hover:-translate-y-1 hover:shadow-[0_6px_12px_rgba(0,0,0,0.35)] focus:outline-none ${
+        className || "w-full"
+      }`}
     >
       <Poster
         src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : undefined}

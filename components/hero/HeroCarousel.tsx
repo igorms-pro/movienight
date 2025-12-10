@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Button, KIND, SIZE } from "baseui/button";
+import { Button, KIND, SIZE, SHAPE as BTN_SHAPE } from "baseui/button";
+import { Play, Info } from "lucide-react";
 import { MovieDetails } from "@/lib/tmdb/types";
 
 type Props = {
@@ -70,7 +71,7 @@ export default function HeroCarousel({ movies }: Props) {
           <h1 className="text-2xl md:text-[48px] font-bold mb-3 md:mb-4 text-white uppercase max-w-[320px] md:max-w-[500px] leading-[1.1]">
             {currentMovie.title} ({new Date(currentMovie.release_date).getFullYear()})
           </h1>
-          <div className="flex gap-3 md:gap-4 items-start">
+          <div className="hidden md:flex gap-3 md:gap-4 items-start">
             <Button kind={KIND.primary} size={SIZE.compact} onClick={() => {}}>
               Regarder
             </Button>
@@ -85,10 +86,30 @@ export default function HeroCarousel({ movies }: Props) {
         </div>
       </div>
 
+      {/* Mobile CTAs + dots inline below image */}
       {displayMovies.length > 0 && (
-        <>
-          {/* Mobile dots */}
-          <div className="absolute inset-x-0 bottom-[-18px] flex items-center justify-center gap-2 z-40 md:hidden">
+        <div className="mt-4 flex items-center justify-center gap-4 md:hidden">
+          <div className="flex items-center gap-2">
+            <Button
+              kind={KIND.primary}
+              size={SIZE.mini}
+              shape={BTN_SHAPE.circle}
+              aria-label="Regarder"
+              onClick={() => router.push(`/movie/${currentMovie.id}`)}
+            >
+              <Play size={18} strokeWidth={2} />
+            </Button>
+            <Button
+              kind={KIND.secondary}
+              size={SIZE.mini}
+              shape={BTN_SHAPE.circle}
+              aria-label="En savoir plus"
+              onClick={() => router.push(`/movie/${currentMovie.id}`)}
+            >
+              <Info size={18} strokeWidth={2} />
+            </Button>
+          </div>
+          <div className="flex items-center justify-center gap-2">
             {displayMovies.map((_, index) => (
               <button
                 key={index}
@@ -106,7 +127,11 @@ export default function HeroCarousel({ movies }: Props) {
               </button>
             ))}
           </div>
+        </div>
+      )}
 
+      {displayMovies.length > 0 && (
+        <>
           {/* Desktop dots */}
           <div className="hidden md:flex absolute top-1/2 -translate-y-1/2 translate-x-[28px] right-0 flex-col items-center justify-center gap-2 z-40">
             {displayMovies.map((_, index) => (

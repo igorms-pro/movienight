@@ -22,6 +22,7 @@ export default function MovieCarousel({
   const [scrollPosition, setScrollPosition] = useState(0);
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
   const [isScrolling, setIsScrolling] = useState(false);
+  const [mobilePage, setMobilePage] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -76,6 +77,20 @@ export default function MovieCarousel({
     }
   };
 
+  const mobilePageSize = 2;
+  const totalMobilePages = Math.ceil(movies.length / mobilePageSize);
+  const canMobilePrev = mobilePage > 0;
+  const canMobileNext = mobilePage < totalMobilePages - 1;
+
+  const handleMobileNav = (direction: "left" | "right") => {
+    setMobilePage((prev) => {
+      if (direction === "left") {
+        return Math.max(prev - 1, 0);
+      }
+      return Math.min(prev + 1, totalMobilePages - 1);
+    });
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
       handleScroll();
@@ -92,6 +107,12 @@ export default function MovieCarousel({
     };
   }, [movies]);
 
+  useEffect(() => {
+    if (mobilePage > 0 && mobilePage * mobilePageSize >= movies.length) {
+      setMobilePage(Math.max(0, totalMobilePages - 1));
+    }
+  }, [mobilePage, movies.length, totalMobilePages]);
+
   const canScrollLeft = scrollPosition > 10;
   const canScrollRight =
     !!scrollContainerRef.current &&
@@ -102,7 +123,7 @@ export default function MovieCarousel({
     <div className="w-full mb-[60px]">
       <h2 className="text-2xl font-semibold mb-4 text-white">{title}</h2>
       <div className="relative max-w-[1150px] mx-auto px-3 md:px-4">
-        <div className="hidden md:block">
+        <div className="hidden md:block relative">
           <Button
             onClick={() => canScrollLeft && scroll("left")}
             kind={BTN_KIND.secondary}
@@ -130,38 +151,36 @@ export default function MovieCarousel({
           >
             <ArrowLeft size={24} />
           </Button>
-        </div>
 
-        <div
-          ref={scrollContainerRef}
-          onScroll={handleScroll}
-          className="flex gap-[12px] md:gap-[10px] sm:gap-[8px] overflow-x-auto scroll-smooth scrollbar-none pb-2.5 pr-12 [&::-webkit-scrollbar]:hidden"
-        >
-          {movies.map((movie, index) => {
-            const isPartiallyVisible = visibleCards.has(index);
-            const cardRef = (el: HTMLDivElement | null) => {
-              cardRefs.current[index] = el;
-            };
+          <div
+            ref={scrollContainerRef}
+            onScroll={handleScroll}
+            className="flex gap-[12px] md:gap-[10px] sm:gap-[8px] overflow-x-auto scroll-smooth scrollbar-none pb-2.5 pr-12 [&::-webkit-scrollbar]:hidden"
+          >
+            {movies.map((movie, index) => {
+              const isPartiallyVisible = visibleCards.has(index);
+              const cardRef = (el: HTMLDivElement | null) => {
+                cardRefs.current[index] = el;
+              };
 
-            return (
-              <div
-                key={movie.id}
-                ref={cardRef}
-                className={`shrink-0 mx-[8px] w-[170px] md:w-[175px] sm:w-[150px] max-[480px]:w-[140px] transition-transform duration-200 ${
-                  isScrolling ? "opacity-100" : isPartiallyVisible ? "opacity-40" : "opacity-100"
-                }`}
-              >
-                <MovieCardCarousel
-                  movie={movie}
-                  showRating={showRating}
-                  showDuration={showDuration}
-                />
-              </div>
-            );
-          })}
-        </div>
+              return (
+                <div
+                  key={movie.id}
+                  ref={cardRef}
+                  className={`shrink-0 mx-[8px] w-[170px] md:w-[175px] sm:w-[150px] max-[480px]:w-[140px] transition-transform duration-200 ${
+                    isScrolling ? "opacity-100" : isPartiallyVisible ? "opacity-40" : "opacity-100"
+                  }`}
+                >
+                  <MovieCardCarousel
+                    movie={movie}
+                    showRating={showRating}
+                    showDuration={showDuration}
+                  />
+                </div>
+              );
+            })}
+          </div>
 
-        <div className="hidden md:block">
           <Button
             onClick={() => canScrollRight && scroll("right")}
             kind={BTN_KIND.secondary}
@@ -191,25 +210,56 @@ export default function MovieCarousel({
           </Button>
         </div>
 
-        <div className="mt-3 flex justify-center gap-3 md:hidden">
-          <Button
-            onClick={() => scroll("left")}
-            kind={BTN_KIND.secondary}
-            size={BTN_SIZE.compact}
-            shape={BTN_SHAPE.pill}
-            disabled={!canScrollLeft}
+        <div className="md:hidden overflow-hidden">
+          <div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(-${mobilePage * 100}%)` }}
           >
-            <ArrowLeft size={20} />
-          </Button>
-          <Button
-            onClick={() => scroll("right")}
-            kind={BTN_KIND.secondary}
-            size={BTN_SIZE.compact}
-            shape={BTN_SHAPE.pill}
-            disabled={!canScrollRight}
-          >
-            <ArrowRight size={20} />
-          </Button>
+            {Array.from({ length: totalMobilePages }).map((_, pageIndex) => {
+              const start = pageIndex * mobilePageSize;
+              const pageMovies = movies.slice(start, start + mobilePageSize);
+
+              return (
+                <div key={pageIndex} className="grid grid-cols-2 gap-3 min-w-full">
+                  {pageMovies.map((movie) => (
+                    <MovieCardCarousel
+                      key={movie.id}
+                      movie={movie}
+                      showRating={showRating}
+                      showDuration={showDuration}
+                      className="w-full"
+                    />
+                  ))}
+                  {pageMovies.length < mobilePageSize && (
+                    <div className="opacity-0 pointer-events-none" aria-hidden />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-3 flex justify-center gap-3">
+            <Button
+              onClick={() => handleMobileNav("left")}
+              kind={BTN_KIND.secondary}
+              size={BTN_SIZE.compact}
+              shape={BTN_SHAPE.pill}
+              disabled={!canMobilePrev}
+              aria-label="Précédent"
+            >
+              <ArrowLeft size={20} />
+            </Button>
+            <Button
+              onClick={() => handleMobileNav("right")}
+              kind={BTN_KIND.secondary}
+              size={BTN_SIZE.compact}
+              shape={BTN_SHAPE.pill}
+              disabled={!canMobileNext}
+              aria-label="Suivant"
+            >
+              <ArrowRight size={20} />
+            </Button>
+          </div>
         </div>
       </div>
     </div>
