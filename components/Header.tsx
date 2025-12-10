@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import ThemeToggle from "./ThemeToggle";
 
@@ -18,6 +18,7 @@ export default function Header() {
       className={`w-full z-50 transition-all duration-300 ${
         isScrolled ? "fixed top-0 left-0 right-0 backdrop-blur-sm shadow-lg" : "relative"
       }`}
+      data-testid="header"
       style={{
         backgroundColor: isScrolled ? "var(--header-bg)" : "transparent",
         boxShadow: isScrolled ? "var(--header-shadow)" : "none",
@@ -28,6 +29,7 @@ export default function Header() {
           className={`flex w-full items-center justify-between ${
             isScrolled ? "hidden lg:flex" : ""
           }`}
+          data-testid="header-brand-row"
         >
           <h1
             className="text-[20px] lg:text-[32px] font-bold uppercase tracking-[2px] m-0"
@@ -43,7 +45,7 @@ export default function Header() {
           <div className="hidden lg:flex">
             <ThemeToggle />
           </div>
-          <div className="flex-1 lg:w-[520px]">
+          <div className="flex-1 lg:w-[520px]" data-testid="header-search">
             <SearchBar />
           </div>
         </div>

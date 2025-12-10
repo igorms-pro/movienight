@@ -120,7 +120,7 @@ export default function MovieCarousel({
       scrollContainerRef.current.scrollWidth - scrollContainerRef.current.clientWidth - 10;
 
   return (
-    <div className="w-full mb-[60px]">
+    <div className="w-full mb-[60px]" data-testid="movie-carousel" data-title={title}>
       <h2 className="text-2xl font-semibold mb-4 text-white">{title}</h2>
       <div className="relative max-w-[1150px] mx-auto px-3 md:px-4">
         <div className="hidden md:block relative">
@@ -156,6 +156,7 @@ export default function MovieCarousel({
             ref={scrollContainerRef}
             onScroll={handleScroll}
             className="flex gap-[12px] md:gap-[10px] sm:gap-[8px] overflow-x-auto scroll-smooth scrollbar-none pb-2.5 pr-12 [&::-webkit-scrollbar]:hidden"
+            data-testid="movie-carousel-track"
           >
             {movies.map((movie, index) => {
               const isPartiallyVisible = visibleCards.has(index);
@@ -210,17 +211,23 @@ export default function MovieCarousel({
           </Button>
         </div>
 
-        <div className="md:hidden overflow-hidden">
+        <div className="md:hidden overflow-hidden" data-testid="movie-carousel-mobile">
           <div
             className="flex transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(-${mobilePage * 100}%)` }}
+            data-testid="movie-carousel-mobile-track"
           >
             {Array.from({ length: totalMobilePages }).map((_, pageIndex) => {
               const start = pageIndex * mobilePageSize;
               const pageMovies = movies.slice(start, start + mobilePageSize);
 
               return (
-                <div key={pageIndex} className="grid grid-cols-2 gap-3 min-w-full">
+                <div
+                  key={pageIndex}
+                  className="grid grid-cols-2 gap-3 min-w-full"
+                  data-testid="movie-carousel-mobile-page"
+                  data-page-index={pageIndex}
+                >
                   {pageMovies.map((movie) => (
                     <MovieCardCarousel
                       key={movie.id}
@@ -246,6 +253,7 @@ export default function MovieCarousel({
               shape={BTN_SHAPE.pill}
               disabled={!canMobilePrev}
               aria-label="Précédent"
+              data-testid="movie-carousel-mobile-prev"
             >
               <ArrowLeft size={20} />
             </Button>
@@ -256,6 +264,7 @@ export default function MovieCarousel({
               shape={BTN_SHAPE.pill}
               disabled={!canMobileNext}
               aria-label="Suivant"
+              data-testid="movie-carousel-mobile-next"
             >
               <ArrowRight size={20} />
             </Button>

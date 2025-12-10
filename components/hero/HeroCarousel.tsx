@@ -32,7 +32,7 @@ export default function HeroCarousel({ movies }: Props) {
   if (!currentMovie) return null;
 
   return (
-    <div className="w-full mb-[60px] relative">
+    <div className="w-full mb-[60px] relative" data-testid="hero-carousel">
       <div className="relative w-full overflow-hidden rounded-xl aspect-video max-h-[320px] min-h-[180px] md:max-h-[520px] md:min-h-[200px]">
         <div className="relative w-full h-full">
           {displayMovies.map((movie, index) => {
@@ -46,6 +46,8 @@ export default function HeroCarousel({ movies }: Props) {
             return (
               <div
                 key={`${movie.id}-${index}`}
+                data-testid="hero-slide"
+                data-movie-id={movie.id}
                 className={`absolute top-0 left-0 w-full h-full transition-all duration-600 ease-in-out ${
                   isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
                 } ${isActive ? "translate-y-0" : isPrevious ? "-translate-y-full" : "translate-y-full"}`}
@@ -88,13 +90,17 @@ export default function HeroCarousel({ movies }: Props) {
 
       {/* Mobile CTAs + dots inline below image */}
       {displayMovies.length > 0 && (
-        <div className="mt-4 flex items-center justify-center gap-4 md:hidden">
+        <div
+          className="mt-4 flex items-center justify-center gap-4 md:hidden"
+          data-testid="hero-mobile-ctas"
+        >
           <div className="flex items-center gap-2">
             <Button
               kind={KIND.primary}
               size={SIZE.mini}
               shape={BTN_SHAPE.circle}
               aria-label="Regarder"
+              data-testid="hero-mobile-play"
               onClick={() => router.push(`/movie/${currentMovie.id}`)}
             >
               <Play size={18} strokeWidth={2} />
@@ -104,12 +110,13 @@ export default function HeroCarousel({ movies }: Props) {
               size={SIZE.mini}
               shape={BTN_SHAPE.circle}
               aria-label="En savoir plus"
+              data-testid="hero-mobile-info"
               onClick={() => router.push(`/movie/${currentMovie.id}`)}
             >
               <Info size={18} strokeWidth={2} />
             </Button>
           </div>
-          <div className="flex items-center justify-center gap-2">
+          <div className="flex items-center justify-center gap-2" data-testid="hero-dots-mobile">
             {displayMovies.map((_, index) => (
               <button
                 key={index}
@@ -133,7 +140,10 @@ export default function HeroCarousel({ movies }: Props) {
       {displayMovies.length > 0 && (
         <>
           {/* Desktop dots */}
-          <div className="hidden md:flex absolute top-1/2 -translate-y-1/2 translate-x-[28px] right-0 flex-col items-center justify-center gap-2 z-40">
+          <div
+            className="hidden md:flex absolute top-1/2 -translate-y-1/2 translate-x-[28px] right-0 flex-col items-center justify-center gap-2 z-40"
+            data-testid="hero-dots-desktop"
+          >
             {displayMovies.map((_, index) => (
               <button
                 key={index}

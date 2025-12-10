@@ -127,18 +127,24 @@ async function TopRatedSection() {
 
 export default function HomePage() {
   return (
-    <div className="w-full">
-      <Suspense fallback={<HeroSkeleton />}>
-        <HeroSection />
-      </Suspense>
+    <div className="w-full" data-testid="home-page">
+      <section data-testid="hero-section">
+        <Suspense fallback={<HeroSkeleton />}>
+          <HeroSection />
+        </Suspense>
+      </section>
 
-      <Suspense fallback={<CarouselSkeleton title="À l'affiche cette semaine" />}>
-        <NowPlayingSection />
-      </Suspense>
+      <section data-testid="now-playing-section">
+        <Suspense fallback={<CarouselSkeleton title="À l'affiche cette semaine" />}>
+          <NowPlayingSection />
+        </Suspense>
+      </section>
 
-      <Suspense fallback={<CarouselSkeleton title="Les films les mieux notés" />}>
-        <TopRatedSection />
-      </Suspense>
+      <section data-testid="top-rated-section">
+        <Suspense fallback={<CarouselSkeleton title="Les films les mieux notés" />}>
+          <TopRatedSection />
+        </Suspense>
+      </section>
     </div>
   );
 }

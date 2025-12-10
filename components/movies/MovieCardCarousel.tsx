@@ -85,6 +85,8 @@ export default function MovieCardCarousel({
           router.push(`/movie/${movie.id}`);
         }
       }}
+      data-testid="movie-card"
+      data-movie-id={movie.id}
       className={`cursor-pointer bg-transparent overflow-hidden transition-transform duration-200 hover:-translate-y-1 hover:shadow-[0_6px_12px_rgba(0,0,0,0.35)] focus:outline-none ${
         className || "w-full"
       }`}
