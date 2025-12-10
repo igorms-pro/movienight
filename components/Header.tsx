@@ -24,7 +24,11 @@ export default function Header() {
       }}
     >
       <div className="w-full lg:w-[calc(100%/1.5)] lg:max-w-[1320px] mx-auto flex flex-col gap-1 py-2 sm:py-5 px-[12px] lg:px-0 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex w-full items-center justify-between">
+        <div
+          className={`flex w-full items-center justify-between ${
+            isScrolled ? "hidden lg:flex" : ""
+          }`}
+        >
           <h1
             className="text-[20px] lg:text-[32px] font-bold uppercase tracking-[2px] m-0"
             style={{ color: "var(--text-primary)" }}
