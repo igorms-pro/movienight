@@ -1,5 +1,4 @@
 import { Client, Server } from "styletron-engine-atomic";
-import { Provider as StyletronProvider } from "styletron-react";
 
 // Hydration for styletron when running on the client
 const getHydrate = () =>
@@ -9,5 +8,3 @@ const getHydrate = () =>
 
 export const styletron =
   typeof window === "undefined" ? new Server() : new Client({ hydrate: getHydrate() });
-
-export { StyletronProvider };

@@ -2,7 +2,8 @@
 
 import React, { ReactNode } from "react";
 import { BaseProvider } from "baseui";
-import { StyletronProvider, styletron } from "@/lib/styletron";
+import { Provider as StyletronProvider } from "styletron-react";
+import { styletron } from "@/lib/styletron";
 import { theme } from "@/styles/theme";
 
 export function Providers({ children }: { children: ReactNode }) {
