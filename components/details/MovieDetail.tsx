@@ -58,7 +58,7 @@ export function MovieDetail({ data }: Props) {
 
       <div className="flex flex-col gap-8 md:grid md:grid-cols-[minmax(0,1fr)_420px] md:gap-[48px] md:mb-[60px]">
         {/* Title */}
-        <div className="flex flex-col gap-4 md:order-1">
+        <div className="flex flex-col gap-4 order-1">
           <div className="flex items-start gap-4">
             <h1 className="text-[32px] md:text-[48px] font-bold uppercase leading-[1.1]">
               {movie.title} ({movie.releaseYear})
@@ -72,7 +72,7 @@ export function MovieDetail({ data }: Props) {
         </div>
 
         {/* Poster */}
-        <div className="md:order-2" data-testid="movie-poster">
+        <div className="order-3 md:order-2" data-testid="movie-poster">
           {movie.posterUrl && (
             <div className="relative w-full pt-[150%] rounded-lg overflow-hidden bg-[#1a1a1a]">
               <Image
@@ -88,7 +88,7 @@ export function MovieDetail({ data }: Props) {
         </div>
 
         {/* Info & synopsis */}
-        <div className="flex flex-col gap-6 md:order-3" data-testid="movie-overview">
+        <div className="flex flex-col gap-6 order-2 md:order-3" data-testid="movie-overview">
           {movie.genres?.length > 0 && (
             <div className="flex flex-wrap gap-2 text-base text-white/70">
               {movie.genres.map((genre, idx) => (
