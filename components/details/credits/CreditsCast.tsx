@@ -52,7 +52,10 @@ export default function CreditsCast({
                 data-testid="credits-cast-item"
                 data-person-id={actor.id}
               >
-                <div className="relative w-full pt-[100%] rounded-lg overflow-hidden bg-[#1a1a1a] mb-3">
+                <div
+                  className="relative w-full pt-[100%] rounded-lg overflow-hidden mb-3"
+                  style={{ backgroundColor: "var(--surface-elevated)" }}
+                >
                   {actor.profile_path ? (
                     <Image
                       src={`https://image.tmdb.org/t/p/w185${actor.profile_path}`}
@@ -62,7 +65,13 @@ export default function CreditsCast({
                       sizes="150px"
                     />
                   ) : (
-                    <div className="absolute inset-0 flex items-center justify-center text-[#666] text-xs">
+                    <div
+                      className="absolute inset-0 flex items-center justify-center text-xs"
+                      style={{
+                        color: "var(--text-secondary)",
+                        backgroundColor: "var(--surface-elevated)",
+                      }}
+                    >
                       Pas d&apos;image
                     </div>
                   )}

@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { ReactNode } from "react";
 import { Suspense } from "react";
+import Script from "next/script";
 import { Inter } from "next/font/google";
 import Providers from "@/components/Providers";
 import Header from "@/components/Header";
@@ -14,7 +15,27 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="fr" className={inter.className}>
+    <html lang="fr" className={inter.className} suppressHydrationWarning>
+      <head>
+        <Script
+          id="theme-sync"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const stored = localStorage.getItem("theme");
+                  const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+                  const theme = stored === "light" || (!stored && prefersLight) ? "light" : "dark";
+                  document.documentElement.setAttribute("data-theme", theme);
+                } catch (e) {
+                  document.documentElement.setAttribute("data-theme", "dark");
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body>
         <div className="app-bg" />
         <div className="app-hero" />

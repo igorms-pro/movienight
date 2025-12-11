@@ -117,7 +117,10 @@ export function MovieDetail({ data }: Props) {
         {/* Poster (right on desktop, first on mobile) */}
         <div className="order-1 md:order-2" data-testid="movie-poster">
           {movie.posterUrl && (
-            <div className="relative w-full pt-[150%] rounded-lg overflow-hidden bg-[#1a1a1a]">
+            <div
+              className="relative w-full pt-[150%] rounded-lg overflow-hidden"
+              style={{ backgroundColor: "var(--surface-elevated)" }}
+            >
               <Image
                 src={movie.posterUrl}
                 alt={movie.title}

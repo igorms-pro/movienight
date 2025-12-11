@@ -51,7 +51,10 @@ export default function CreditsCrew({
                 data-testid="credits-crew-item"
                 data-person-id={c.id}
               >
-                <div className="relative w-12 h-12 rounded-full overflow-hidden bg-[#1a1a1a] shrink-0">
+                <div
+                  className="relative w-12 h-12 rounded-full overflow-hidden shrink-0"
+                  style={{ backgroundColor: "var(--surface-elevated)" }}
+                >
                   {c.profile_path ? (
                     <Image
                       src={`https://image.tmdb.org/t/p/w185${c.profile_path}`}
@@ -61,7 +64,13 @@ export default function CreditsCrew({
                       sizes="48px"
                     />
                   ) : (
-                    <div className="absolute inset-0 flex items-center justify-center text-xs text-[#666]">
+                    <div
+                      className="absolute inset-0 flex items-center justify-center text-xs"
+                      style={{
+                        color: "var(--text-secondary)",
+                        backgroundColor: "var(--surface-elevated)",
+                      }}
+                    >
                       N/A
                     </div>
                   )}
