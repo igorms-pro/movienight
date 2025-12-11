@@ -50,13 +50,25 @@ export default function MovieCredits({ movie, credits }: Props) {
       <div className="w-full max-w-[1400px] space-y-10 md:px-0">
         <div className="flex flex-col gap-3 md:px-0">
           <div className="flex items-center gap-4">
-            <Link href={`/movie/${movie.id}`} className="inline-flex">
-              <Button kind={BTN_KIND.secondary} size={BTN_SIZE.compact}>
+            <Link
+              href={`/movie/${movie.id}`}
+              className="inline-flex"
+              data-testid="credits-back-link"
+            >
+              <Button
+                kind={BTN_KIND.secondary}
+                size={BTN_SIZE.compact}
+                data-testid="credits-back-button"
+              >
                 ← Retour
               </Button>
             </Link>
           </div>
-          <h1 className="text-3xl font-bold" style={{ color: "var(--text-primary, #fff)" }}>
+          <h1
+            className="text-3xl font-bold"
+            style={{ color: "var(--text-primary, #fff)" }}
+            data-testid="credits-title"
+          >
             {movie.title} — Crédits & Casting
           </h1>
         </div>

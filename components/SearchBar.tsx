@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Input, SIZE as INPUT_SIZE } from "baseui/input";
@@ -29,6 +29,7 @@ export default function SearchBar() {
 
   const { data, isLoading } = useSearchMovies(debounced, 1, debounced.trim().length > 2);
   const suggestions = useMemo(() => data?.results?.slice(0, 10) ?? [], [data?.results]);
+  const totalResults = data?.total_results ?? 0;
 
   const handleSearch = (value: string) => {
     const trimmed = value.trim();
@@ -44,7 +45,10 @@ export default function SearchBar() {
   };
 
   return (
-    <div className="relative w-[520px] max-w-full max-[1280px]:w-[460px] max-[1024px]:w-full">
+    <div
+      className="relative w-[520px] max-w-full max-[1280px]:w-[460px] max-[1024px]:w-full"
+      data-testid="search-bar"
+    >
       <div className="h-[37px] sm:h-[40px] md:h-[45px]">
         <Input
           value={query}
@@ -61,6 +65,11 @@ export default function SearchBar() {
           }}
           placeholder="Rechercher un film, un réalisateur, un acteur"
           size={INPUT_SIZE.large}
+          inputRef={(ref) => {
+            if (ref) {
+              (ref as HTMLInputElement).setAttribute("data-testid", "search-input");
+            }
+          }}
           startEnhancer={() => (
             <SearchIcon size={22} color="var(--text-primary)" strokeWidth={1.5} />
           )}
@@ -75,6 +84,7 @@ export default function SearchBar() {
                 }}
                 aria-label="Effacer"
                 className="w-7 h-7 rounded-full flex items-center justify-center transition-colors"
+                data-testid="search-clear"
                 style={{
                   backgroundColor: "rgba(255,255,255,0.15)",
                   borderTopWidth: "1px",
@@ -165,11 +175,13 @@ export default function SearchBar() {
             borderColor: "var(--border-strong)",
             boxShadow: "0 10px 30px var(--shadow-strong)",
           }}
+          data-testid="search-suggestions"
         >
           {isLoading && (
             <div
               className="flex items-center justify-between px-4 py-3 text-sm border-b"
               style={{ color: "var(--text-secondary)", borderColor: "var(--border-strong)" }}
+              data-testid="search-loading"
             >
               Recherche...
             </div>
@@ -188,6 +200,7 @@ export default function SearchBar() {
                   onClick={() => handleSuggestionClick(movie.id)}
                   className="w-full text-left"
                   style={{ background: "transparent", border: "none", padding: 0 }}
+                  data-testid="search-suggestion"
                 >
                   <div
                     className="flex items-center gap-3 px-4 py-3"
@@ -237,6 +250,20 @@ export default function SearchBar() {
               );
             })}
           </div>
+
+          <button
+            type="button"
+            onClick={() => handleSearch(query)}
+            className="w-full text-center px-4 py-3 text-sm font-semibold"
+            style={{
+              color: "var(--text-primary)",
+              borderTop: "1px solid var(--border-strong)",
+              background: "transparent",
+            }}
+            data-testid="search-see-all"
+          >
+            Voir tous les résultats{totalResults ? ` (${totalResults})` : ""}
+          </button>
         </div>
       )}
     </div>

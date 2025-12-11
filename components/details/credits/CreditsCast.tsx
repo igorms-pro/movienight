@@ -29,6 +29,7 @@ export default function CreditsCast({
         onClick={onToggle}
         className="flex items-center gap-2 text-2xl font-semibold bg-transparent border-none p-0 focus:outline-none"
         style={{ color: "var(--text-primary, #fff)" }}
+        data-testid="credits-cast-toggle"
       >
         Casting
         <span className="text-lg" style={{ color: "var(--text-primary, #fff)" }}>
@@ -37,7 +38,10 @@ export default function CreditsCast({
       </button>
       {showCast && (
         <div className="space-y-4 mb-5">
-          <div className="grid grid-cols-6 gap-6 max-[1280px]:grid-cols-4 max-[768px]:grid-cols-2">
+          <div
+            className="grid grid-cols-6 gap-6 max-[1280px]:grid-cols-4 max-[768px]:grid-cols-2"
+            data-testid="credits-cast-list"
+          >
             {displayedCast.map((actor: CastMember) => (
               <button
                 key={actor.id}
@@ -45,6 +49,8 @@ export default function CreditsCast({
                 onClick={() =>
                   window.open(`https://www.themoviedb.org/person/${actor.id}`, "_blank")
                 }
+                data-testid="credits-cast-item"
+                data-person-id={actor.id}
               >
                 <div className="relative w-full pt-[100%] rounded-lg overflow-hidden bg-[#1a1a1a] mb-3">
                   {actor.profile_path ? (
@@ -70,7 +76,12 @@ export default function CreditsCast({
             )}
           </div>
           {hasMore && (
-            <Button kind={BTN_KIND.secondary} size={BTN_SIZE.compact} onClick={onShowMore}>
+            <Button
+              kind={BTN_KIND.secondary}
+              size={BTN_SIZE.compact}
+              onClick={onShowMore}
+              data-testid="credits-cast-more"
+            >
               Voir plus ({cast.length - displayedCast.length} restants)
             </Button>
           )}

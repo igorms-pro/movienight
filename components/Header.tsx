@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import SearchBar from "./SearchBar";
 import ThemeToggle from "./ThemeToggle";
 
@@ -31,12 +32,14 @@ export default function Header() {
           }`}
           data-testid="header-brand-row"
         >
-          <h1
-            className="text-[20px] lg:text-[32px] font-bold uppercase tracking-[2px] m-0"
-            style={{ color: "var(--text-primary)" }}
-          >
-            MOVIENIGHT
-          </h1>
+          <Link href="/" aria-label="Retour à l'accueil">
+            <h1
+              className="text-[20px] lg:text-[32px] font-bold uppercase tracking-[2px] m-0"
+              style={{ color: "var(--text-primary)" }}
+            >
+              MOVIENIGHT
+            </h1>
+          </Link>
           <div className="lg:hidden">
             <ThemeToggle />
           </div>

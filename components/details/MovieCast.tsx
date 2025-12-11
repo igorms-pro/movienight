@@ -25,12 +25,17 @@ export default function MovieCast({ cast, totalCastCount, movieId }: Props) {
           </span>
         )}
       </div>
-      <div className="grid grid-cols-6 gap-6 max-[1280px]:grid-cols-4 max-[768px]:grid-cols-2">
+      <div
+        className="grid grid-cols-6 gap-6 max-[1280px]:grid-cols-4 max-[768px]:grid-cols-2"
+        data-testid="movie-cast-grid"
+      >
         {mainCast.map((actor) => (
           <button
             key={actor.id}
             className="text-center cursor-pointer transition-transform duration-200 hover:scale-[1.02]"
             onClick={() => window.open(`https://www.themoviedb.org/person/${actor.id}`, "_blank")}
+            data-testid="movie-cast-item"
+            data-person-id={actor.id}
           >
             <div className="relative w-full pt-[100%] rounded-lg overflow-hidden bg-[#1a1a1a] mb-3">
               {actor.profile_path ? (

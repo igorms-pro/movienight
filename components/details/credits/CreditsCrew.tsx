@@ -29,6 +29,7 @@ export default function CreditsCrew({
         onClick={onToggle}
         className="flex items-center gap-2 text-2xl font-semibold bg-transparent border-none p-0 focus:outline-none"
         style={{ color: "var(--text-primary, #fff)" }}
+        data-testid="credits-crew-toggle"
       >
         Équipe
         <span className="text-lg" style={{ color: "var(--text-primary, #fff)" }}>
@@ -37,7 +38,7 @@ export default function CreditsCrew({
       </button>
       {showCrew && (
         <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4" data-testid="credits-crew-list">
             {displayedCrew.map((c) => (
               <button
                 key={`${c.id}-${c.job}`}
@@ -47,6 +48,8 @@ export default function CreditsCrew({
                   borderColor: "var(--border-strong, #333)",
                 }}
                 onClick={() => window.open(`https://www.themoviedb.org/person/${c.id}`, "_blank")}
+                data-testid="credits-crew-item"
+                data-person-id={c.id}
               >
                 <div className="relative w-12 h-12 rounded-full overflow-hidden bg-[#1a1a1a] shrink-0">
                   {c.profile_path ? (
@@ -74,7 +77,12 @@ export default function CreditsCrew({
             )}
           </div>
           {hasMore && (
-            <Button kind={BTN_KIND.secondary} size={BTN_SIZE.compact} onClick={onShowMore}>
+            <Button
+              kind={BTN_KIND.secondary}
+              size={BTN_SIZE.compact}
+              onClick={onShowMore}
+              data-testid="credits-crew-more"
+            >
               Voir plus ({crew.length - displayedCrew.length} restants)
             </Button>
           )}

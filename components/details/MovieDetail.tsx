@@ -41,19 +41,28 @@ export function MovieDetail({ data }: Props) {
       <div className="flex flex-col gap-8 md:grid md:grid-cols-[minmax(0,1fr)_420px] md:gap-[48px] md:mb-[60px]">
         {/* Info & synopsis (left on desktop, below poster on mobile) */}
         <div className="flex flex-col gap-6 order-2 md:order-1" data-testid="movie-overview">
-          <div className="flex items-start gap-4">
-            <h1 className="text-[32px] md:text-[48px] font-bold uppercase leading-[1.1]">
+          <div className="flex items-start gap-4" data-testid="movie-title-row">
+            <h1
+              className="text-[32px] md:text-[48px] font-bold uppercase leading-[1.1]"
+              data-testid="movie-title"
+            >
               {movie.title} ({movie.releaseYear})
             </h1>
             {movie.certification && (
-              <span className="inline-flex items-center rounded-full border border-white/30 px-3 py-1 text-sm text-white/80">
+              <span
+                className="inline-flex items-center rounded-full border border-white/30 px-3 py-1 text-sm text-white/80"
+                data-testid="movie-certification"
+              >
                 {movie.certification}
               </span>
             )}
           </div>
 
           {movie.genres?.length > 0 && (
-            <div className="flex flex-wrap gap-2 text-base text-white/70">
+            <div
+              className="flex flex-wrap gap-2 text-base text-white/70"
+              data-testid="movie-genres"
+            >
               {movie.genres.map((genre, idx) => (
                 <span key={genre.id}>
                   {genre.name}
@@ -63,7 +72,7 @@ export function MovieDetail({ data }: Props) {
             </div>
           )}
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4" data-testid="movie-runtime-rating">
             {movie.runtime ? (
               <span className="text-base text-white/70 whitespace-nowrap">
                 {formatRuntime(movie.runtime)}
@@ -94,7 +103,7 @@ export function MovieDetail({ data }: Props) {
             </Button>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-2" data-testid="movie-synopsis">
             <h2 className="text-xl font-semibold">Synopsis</h2>
             <p className="text-base leading-relaxed text-white/80">
               {movie.overview || "Aucun synopsis disponible."}

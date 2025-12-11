@@ -13,7 +13,10 @@ const TrailerCard = ({ video, isActive }: { video: Video; isActive: boolean }) =
   <div
     className={`w-full transition-opacity duration-300 ${isActive ? "opacity-100" : "opacity-0"}`}
   >
-    <div className="relative w-full pt-[56.25%] bg-[#1a1a1a] rounded-lg overflow-hidden mb-2">
+    <div
+      className="relative w-full pt-[56.25%] bg-[#1a1a1a] rounded-lg overflow-hidden mb-2"
+      data-testid="trailer-thumbnail"
+    >
       <Image
         src={`https://img.youtube.com/vi/${video.key}/maxresdefault.jpg`}
         alt={video.name}
@@ -47,12 +50,16 @@ export default function MovieTrailers({ trailers }: Props) {
       <h2 className="text-2xl font-semibold mb-6">Bandes annonces</h2>
 
       {/* Desktop: horizontal list */}
-      <div className="hidden md:flex gap-4 overflow-x-auto pb-2.5 scrollbar-none [&::-webkit-scrollbar]:hidden">
+      <div
+        className="hidden md:flex gap-4 overflow-x-auto pb-2.5 scrollbar-none [&::-webkit-scrollbar]:hidden"
+        data-testid="trailer-desktop-list"
+      >
         {trailers.map((video) => (
           <button
             key={video.id}
             className="shrink-0 w-80 text-left cursor-pointer"
             onClick={() => window.open(`https://www.youtube.com/watch?v=${video.key}`, "_blank")}
+            data-testid="trailer-desktop-card"
           >
             <TrailerCard video={video} isActive />
           </button>
@@ -61,10 +68,11 @@ export default function MovieTrailers({ trailers }: Props) {
 
       {/* Mobile: single card with prev/next */}
       <div className="md:hidden">
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden" data-testid="trailer-mobile">
           <div
             className="flex transition-transform duration-400 ease-in-out"
             style={{ transform: `translateX(-${current * 100}%)` }}
+            data-testid="trailer-mobile-track"
           >
             {trailers.map((video, idx) => (
               <div key={video.id} className="w-full shrink-0">
@@ -73,6 +81,7 @@ export default function MovieTrailers({ trailers }: Props) {
                   onClick={() =>
                     window.open(`https://www.youtube.com/watch?v=${video.key}`, "_blank")
                   }
+                  data-testid={`trailer-mobile-card-${idx}`}
                 >
                   <TrailerCard video={video} isActive={idx === current} />
                 </button>
@@ -88,6 +97,7 @@ export default function MovieTrailers({ trailers }: Props) {
             onClick={() => canPrev && setCurrent((c) => Math.max(0, c - 1))}
             disabled={!canPrev}
             aria-label="Précédent"
+            data-testid="trailer-prev"
           >
             ←
           </Button>
@@ -98,6 +108,7 @@ export default function MovieTrailers({ trailers }: Props) {
             onClick={() => canNext && setCurrent((c) => Math.min(trailers.length - 1, c + 1))}
             disabled={!canNext}
             aria-label="Suivant"
+            data-testid="trailer-next"
           >
             →
           </Button>

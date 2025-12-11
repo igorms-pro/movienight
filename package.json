@@ -12,6 +12,7 @@
     "test": "pnpm run test:unit",
     "test:unit": "vitest run",
     "test:unit:watch": "vitest",
+    "coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,css,md,json}\"",
     "prepare": "husky"
@@ -38,6 +39,7 @@
     "@types/node": "^20.14.11",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "@vitest/coverage-v8": "1.6.1",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.5",
     "husky": "^9.1.3",
