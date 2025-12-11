@@ -9,9 +9,13 @@ export default defineConfig({
   reporter: "list",
   timeout: 60_000,
   use: {
-    baseURL: "http://localhost:3000",
+    baseURL: "http://localhost:3001",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
+    env: {
+      E2E_MOCK: "1",
+      NEXT_PUBLIC_TMDB_API_KEY: "test-key",
+    },
   },
   projects: [
     {
@@ -20,9 +24,13 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "pnpm dev",
-    url: "http://localhost:3000",
-    reuseExistingServer: true,
+    command: "PORT=3001 pnpm dev",
+    url: "http://localhost:3001",
+    reuseExistingServer: false,
     timeout: 120_000,
+    env: {
+      E2E_MOCK: "1",
+      NEXT_PUBLIC_TMDB_API_KEY: "test-key",
+    },
   },
 });

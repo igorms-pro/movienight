@@ -15,6 +15,8 @@ const movie: MovieDetailView["movie"] = {
     { id: 2, name: "Comedy" },
   ],
   runtime: 125,
+  release_date: "2024-01-01",
+  vote_average: 7.8,
   userRating: 78,
   posterUrl: "",
 };

@@ -18,6 +18,7 @@ const makeCrew = (i: number) => ({
   name: `Crew ${i}`,
   job: "Director",
   profile_path: `/crew${i}.jpg`,
+  department: "Directing",
 });
 
 const makeCast = (i: number): CastMember => ({
@@ -42,10 +43,13 @@ const movie: MovieDetails = {
   credits: undefined,
   videos: { results: [] },
   release_dates: { results: [] },
+  production_companies: [],
+  tagline: "",
+  budget: 0,
+  revenue: 0,
 };
 
 const credits: Credits = {
-  id: 42,
   cast: Array.from({ length: 22 }, (_, idx) => makeCast(idx + 1)),
   crew: Array.from({ length: 18 }, (_, idx) => makeCrew(idx + 1)),
 };
@@ -96,7 +100,6 @@ describe("MovieCredits", () => {
       <MovieCredits
         movie={movie}
         credits={{
-          id: 42,
           cast: [],
           crew: [],
         }}

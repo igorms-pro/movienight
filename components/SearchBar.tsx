@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Input, SIZE as INPUT_SIZE } from "baseui/input";
@@ -16,6 +16,7 @@ export default function SearchBar() {
   const [debounced, setDebounced] = useState(initialQuery);
   const [open, setOpen] = useState(false);
   const { setSearchQuery } = useMovieStore();
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const id = setTimeout(() => setDebounced(query), 250);
@@ -30,6 +31,12 @@ export default function SearchBar() {
   const { data, isLoading } = useSearchMovies(debounced, 1, debounced.trim().length > 2);
   const suggestions = useMemo(() => data?.results?.slice(0, 10) ?? [], [data?.results]);
   const totalResults = data?.total_results ?? 0;
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.setAttribute("data-testid", "search-input");
+    }
+  }, []);
 
   const handleSearch = (value: string) => {
     const trimmed = value.trim();
@@ -65,11 +72,7 @@ export default function SearchBar() {
           }}
           placeholder="Rechercher un film, un réalisateur, un acteur"
           size={INPUT_SIZE.large}
-          inputRef={(ref) => {
-            if (ref) {
-              (ref as HTMLInputElement).setAttribute("data-testid", "search-input");
-            }
-          }}
+          inputRef={inputRef}
           startEnhancer={() => (
             <SearchIcon size={22} color="var(--text-primary)" strokeWidth={1.5} />
           )}

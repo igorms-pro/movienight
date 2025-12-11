@@ -4,7 +4,7 @@ const baseURL = process.env.NEXT_PUBLIC_TMDB_BASE_URL ?? "https://api.themoviedb
 const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const language = process.env.NEXT_PUBLIC_TMDB_LANG ?? "fr-FR";
 
-if (!apiKey) {
+if (!apiKey && process.env.E2E_MOCK !== "1") {
   throw new Error("Missing NEXT_PUBLIC_TMDB_API_KEY env variable for TMDB client");
 }
 

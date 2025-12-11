@@ -21,7 +21,8 @@ vi.mock("@/lib/tmdb/api", () => ({
 
 describe("SearchPage", () => {
   it("renders results and load more", async () => {
-    (tmdbApi.searchMovies as vi.Mock).mockResolvedValue({
+    const searchMock = tmdbApi.searchMovies as ReturnType<typeof vi.fn>;
+    searchMock.mockResolvedValue({
       results: [
         { id: 1, title: "Avatar", poster_path: "/p1.jpg", release_date: "2009-01-01" },
         { id: 2, title: "Avatar 2", poster_path: "/p2.jpg", release_date: "2022-01-01" },
@@ -40,7 +41,8 @@ describe("SearchPage", () => {
   });
 
   it("shows empty state when no results", async () => {
-    (tmdbApi.searchMovies as vi.Mock).mockResolvedValue({
+    const searchMock = tmdbApi.searchMovies as ReturnType<typeof vi.fn>;
+    searchMock.mockResolvedValue({
       results: [],
       total_results: 0,
     });

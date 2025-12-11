@@ -27,6 +27,7 @@ const makeTrailer = (id: string, type: string): Video => ({
   name: `Trailer ${id}`,
   site: "YouTube",
   type,
+  official: true,
 });
 
 const makeCast = (id: number): CastMember => ({
@@ -49,6 +50,8 @@ const baseData: MovieDetailView = {
       { id: 2, name: "Aventure" },
     ],
     runtime: 105,
+    release_date: "2025-01-01",
+    vote_average: 8.2,
     userRating: 82,
     posterUrl: "https://image.tmdb.org/t/p/w500/poster.jpg",
   },
