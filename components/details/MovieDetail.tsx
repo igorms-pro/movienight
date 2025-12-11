@@ -222,14 +222,27 @@ export function MovieDetail({ data }: Props) {
               </button>
             ))}
             {hasMoreCast && (
-              <button
-                className="text-center cursor-pointer transition-transform duration-200 hover:scale-[1.02] border border-white/15 rounded-lg flex flex-col items-center justify-center min-h-[200px]"
+              <Button
+                kind={BTN_KIND.tertiary}
+                size={BTN_SIZE.default}
                 onClick={() => router.push(`/movie/${movie.id}/credits`)}
+                overrides={{
+                  BaseButton: {
+                    style: {
+                      width: "100%",
+                      height: "100%",
+                      minHeight: "180px",
+                      cursor: "pointer",
+                      color: "#fff",
+                      backgroundColor: "rgba(255,255,255,0.06)",
+                      borderColor: "rgba(255,255,255,0.12)",
+                    },
+                  },
+                }}
                 data-testid="movie-cast-see-all"
               >
-                <div className="text-lg font-semibold text-white mb-2">Voir tout</div>
-                <div className="text-sm text-white/70">Casting & Crédits</div>
-              </button>
+                Voir tout →
+              </Button>
             )}
           </div>
         </div>
