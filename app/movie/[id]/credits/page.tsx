@@ -33,5 +33,9 @@ export default async function MovieCreditsPage({ params }: PageProps) {
 
   const { movie, credits } = data;
 
-  return <MovieCredits movie={movie} credits={credits} />;
+  return (
+    <div data-page="credits">
+      <MovieCredits movie={movie} credits={credits} />
+    </div>
+  );
 }

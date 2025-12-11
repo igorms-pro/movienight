@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button, KIND as BTN_KIND, SIZE as BTN_SIZE, SHAPE as BTN_SHAPE } from "baseui/button";
 import { Video } from "@/lib/tmdb/types";
@@ -9,8 +9,10 @@ type Props = {
   trailers: Video[];
 };
 
-const TrailerCard = ({ video }: { video: Video }) => (
-  <div className="w-full">
+const TrailerCard = ({ video, isActive }: { video: Video; isActive: boolean }) => (
+  <div
+    className={`w-full transition-opacity duration-300 ${isActive ? "opacity-100" : "opacity-0"}`}
+  >
     <div className="relative w-full pt-[56.25%] bg-[#1a1a1a] rounded-lg overflow-hidden mb-2">
       <Image
         src={`https://img.youtube.com/vi/${video.key}/maxresdefault.jpg`}
@@ -33,6 +35,11 @@ export default function MovieTrailers({ trailers }: Props) {
   const [current, setCurrent] = useState(0);
   const canPrev = current > 0;
   const canNext = current < trailers.length - 1;
+
+  useEffect(() => {
+    setCurrent(0);
+  }, [trailers.length]);
+
   if (!trailers.length) return null;
 
   return (
@@ -47,21 +54,32 @@ export default function MovieTrailers({ trailers }: Props) {
             className="shrink-0 w-80 text-left cursor-pointer"
             onClick={() => window.open(`https://www.youtube.com/watch?v=${video.key}`, "_blank")}
           >
-            <TrailerCard video={video} />
+            <TrailerCard video={video} isActive />
           </button>
         ))}
       </div>
 
       {/* Mobile: single card with prev/next */}
       <div className="md:hidden">
-        <button
-          className="w-full text-left"
-          onClick={() =>
-            window.open(`https://www.youtube.com/watch?v=${trailers[current].key}`, "_blank")
-          }
-        >
-          <TrailerCard video={trailers[current]} />
-        </button>
+        <div className="relative overflow-hidden">
+          <div
+            className="flex transition-transform duration-400 ease-in-out"
+            style={{ transform: `translateX(-${current * 100}%)` }}
+          >
+            {trailers.map((video, idx) => (
+              <div key={video.id} className="w-full shrink-0">
+                <button
+                  className="w-full text-left"
+                  onClick={() =>
+                    window.open(`https://www.youtube.com/watch?v=${video.key}`, "_blank")
+                  }
+                >
+                  <TrailerCard video={video} isActive={idx === current} />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
         <div className="mt-3 flex justify-center gap-3">
           <Button
             kind={BTN_KIND.secondary}

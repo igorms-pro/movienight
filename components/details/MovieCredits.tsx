@@ -52,14 +52,16 @@ export default function MovieCredits({ movie, credits }: Props) {
   const hasData = displayedCrew.length > 0 || displayedCast.length > 0;
 
   return (
-    <div className="py-[60px] flex justify-center" data-testid="credits-page">
-      <div className="w-full max-w-[1400px] px-5 space-y-10">
-        <div className="flex items-center gap-4">
-          <Link href={`/movie/${movie.id}`} className="inline-flex">
-            <Button kind={BTN_KIND.secondary} size={BTN_SIZE.compact}>
-              ← Retour
-            </Button>
-          </Link>
+    <div className="flex justify-center" data-testid="credits-page">
+      <div className="w-full max-w-[1400px] space-y-10 md:px-0">
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center gap-4">
+            <Link href={`/movie/${movie.id}`} className="inline-flex">
+              <Button kind={BTN_KIND.secondary} size={BTN_SIZE.compact}>
+                ← Retour
+              </Button>
+            </Link>
+          </div>
           <h1 className="text-3xl font-bold">{movie.title} — Crédits & Casting</h1>
         </div>
 

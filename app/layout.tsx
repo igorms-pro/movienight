@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <div className="app-hero" />
         <Providers>
           <Header />
-          <main className="min-h-screen flex flex-col items-center pt-12 sm:pt-[120px]">
+          <main className="min-h-screen flex flex-col items-center pt-12 data-[page=credits]:pt-1">
             <div className="w-full max-w-[1180px] px-3 md:px-0">{children}</div>
           </main>
         </Providers>
