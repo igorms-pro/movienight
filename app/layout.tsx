@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { ReactNode } from "react";
+import { Suspense } from "react";
 import { Inter } from "next/font/google";
 import Providers from "@/components/Providers";
 import Header from "@/components/Header";
@@ -18,7 +19,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <div className="app-bg" />
         <div className="app-hero" />
         <Providers>
-          <Header />
+          <Suspense fallback={null}>
+            <Header />
+          </Suspense>
           <main className="min-h-screen flex flex-col items-center pt-12 data-[page=credits]:pt-1">
             <div className="w-full max-w-[1180px] px-3 md:px-0">{children}</div>
           </main>

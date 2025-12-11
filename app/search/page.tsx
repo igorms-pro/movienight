@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import MovieCardSearch from "@/components/movies/MovieCardSearch";
 import LoadingSpinner from "@/components/feedback/LoadingSpinner";
 import { tmdbApi } from "@/lib/tmdb/api";
 import { Movie } from "@/lib/tmdb/types";
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParams = useSearchParams();
   const query = (searchParams.get("q") || "").trim();
   const [page, setPage] = useState(1);
@@ -92,5 +92,21 @@ export default function SearchPage() {
         </p>
       )}
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="w-full max-w-[1180px] mx-auto px-3 md:px-0 pb-14" data-testid="search-page">
+          <div className="py-10">
+            <LoadingSpinner />
+          </div>
+        </div>
+      }
+    >
+      <SearchPageContent />
+    </Suspense>
   );
 }
