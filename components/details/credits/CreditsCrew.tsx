@@ -67,13 +67,19 @@ export default function CreditsCrew({
                   )}
                 </div>
                 <div>
-                  <div className="text-sm text-[#999]">{c.job}</div>
-                  <div className="text-base font-semibold text-white">{c.name}</div>
+                  <div className="text-sm" style={{ color: "var(--text-secondary)" }}>
+                    {c.job}
+                  </div>
+                  <div className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>
+                    {c.name}
+                  </div>
                 </div>
               </button>
             ))}
             {displayedCrew.length === 0 && (
-              <div className="text-white/60">Aucune donnée pour l&apos;équipe.</div>
+              <div style={{ color: "var(--text-secondary)" }}>
+                Aucune donnée pour l&apos;équipe.
+              </div>
             )}
           </div>
           {hasMore && (
@@ -81,6 +87,19 @@ export default function CreditsCrew({
               kind={BTN_KIND.secondary}
               size={BTN_SIZE.compact}
               onClick={onShowMore}
+              overrides={{
+                BaseButton: {
+                  style: {
+                    color: "var(--text-primary)",
+                    backgroundColor: "var(--card-bg-strong)",
+                    borderColor: "var(--border-strong)",
+                    ":hover": {
+                      backgroundColor: "var(--hover-surface)",
+                      borderColor: "var(--border-stronger)",
+                    },
+                  },
+                },
+              }}
               data-testid="credits-crew-more"
             >
               Voir plus ({crew.length - displayedCrew.length} restants)

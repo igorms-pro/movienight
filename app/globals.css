@@ -89,11 +89,3 @@ a {
 }
 
 /* Ensure light theme keeps readable text even when legacy Tailwind white classes are used */
-[data-theme="light"] .text-white,
-[data-theme="light"] [class*="text-white/"] {
-  color: var(--text-primary) !important;
-}
-[data-theme="light"] [class*="text-white/7"],
-[data-theme="light"] [class*="text-white/6"] {
-  color: var(--text-secondary) !important;
-}

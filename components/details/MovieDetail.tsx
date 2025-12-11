@@ -50,7 +50,11 @@ export function MovieDetail({ data }: Props) {
             </h1>
             {movie.certification && (
               <span
-                className="inline-flex items-center rounded-full border border-white/30 px-3 py-1 text-sm text-white/80"
+                className="inline-flex items-center rounded-full border px-3 py-1 text-sm"
+                style={{
+                  borderColor: "var(--border-strong)",
+                  color: "var(--text-primary)",
+                }}
                 data-testid="movie-certification"
               >
                 {movie.certification}

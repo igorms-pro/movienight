@@ -54,7 +54,11 @@ function SearchPageContent() {
       </div>
 
       {query && results.length === 0 && !isLoading && !error ? (
-        <div className="text-center py-[60px] px-5 text-white/70" data-testid="search-empty">
+        <div
+          className="text-center py-[60px] px-5"
+          style={{ color: "var(--text-secondary)" }}
+          data-testid="search-empty"
+        >
           Aucun résultat trouvé pour “{query}”
         </div>
       ) : null}
@@ -78,7 +82,11 @@ function SearchPageContent() {
           <button
             type="button"
             onClick={() => setPage((p) => p + 1)}
-            className="px-5 py-3 rounded-full border border-white/30 text-white hover:border-white/60 transition"
+            className="px-5 py-3 rounded-full border transition"
+            style={{
+              borderColor: "var(--border-strong)",
+              color: "var(--text-primary)",
+            }}
             data-testid="search-load-more"
           >
             Charger plus
@@ -87,7 +95,7 @@ function SearchPageContent() {
       )}
 
       {!query && (
-        <p className="text-white/60" data-testid="search-placeholder">
+        <p style={{ color: "var(--text-secondary)" }} data-testid="search-placeholder">
           Tapez une recherche dans la barre en haut pour commencer.
         </p>
       )}

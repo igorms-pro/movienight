@@ -20,7 +20,7 @@ export default function MovieCast({ cast, totalCastCount, movieId }: Props) {
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-semibold">Casting</h2>
         {hasMoreCast && (
-          <span className="text-sm text-white/70">
+          <span className="text-sm" style={{ color: "var(--text-secondary)" }}>
             +{totalCastCount - mainCast.length} supplémentaires
           </span>
         )}
@@ -52,8 +52,12 @@ export default function MovieCast({ cast, totalCastCount, movieId }: Props) {
                 </div>
               )}
             </div>
-            <div className="text-sm font-semibold mb-1 text-white">{actor.name}</div>
-            <div className="text-xs text-[#999]">{actor.character}</div>
+            <div className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
+              {actor.name}
+            </div>
+            <div className="text-xs" style={{ color: "var(--text-secondary)" }}>
+              {actor.character}
+            </div>
           </button>
         ))}
         {hasMoreCast && (
