@@ -54,7 +54,7 @@ export default function MovieCredits({ movie, credits }: Props) {
   return (
     <div className="flex justify-center" data-testid="credits-page">
       <div className="w-full max-w-[1400px] space-y-10 md:px-0">
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 md:px-0">
           <div className="flex items-center gap-4">
             <Link href={`/movie/${movie.id}`} className="inline-flex">
               <Button kind={BTN_KIND.secondary} size={BTN_SIZE.compact}>
@@ -62,7 +62,9 @@ export default function MovieCredits({ movie, credits }: Props) {
               </Button>
             </Link>
           </div>
-          <h1 className="text-3xl font-bold">{movie.title} — Crédits & Casting</h1>
+          <h1 className="text-3xl font-bold" style={{ color: "var(--text-primary, #fff)" }}>
+            {movie.title} — Crédits & Casting
+          </h1>
         </div>
 
         {!hasData && (
@@ -71,21 +73,21 @@ export default function MovieCredits({ movie, credits }: Props) {
           </div>
         )}
 
-        <section className="space-y-4" data-testid="credits-crew">
-          <Button
-            kind={BTN_KIND.tertiary}
-            size={BTN_SIZE.compact}
+        <section className="space-y-4 md:px-0" data-testid="credits-crew">
+          <button
+            type="button"
             onClick={() => setShowCrew((v) => !v)}
-            overrides={{
-              BaseButton: { style: { paddingLeft: "0", paddingRight: "0", gap: "8px" } },
-            }}
+            className="flex items-center gap-2 text-2xl font-semibold bg-transparent border-none p-0 focus:outline-none"
+            style={{ color: "var(--text-primary, #fff)" }}
           >
-            <h2 className="text-2xl font-semibold">Équipe</h2>
-            <span className="text-white/80 transition-colors text-lg">{showCrew ? "▴" : "▾"}</span>
-          </Button>
+            Équipe
+            <span className="text-lg" style={{ color: "var(--text-primary, #fff)" }}>
+              {showCrew ? "▴" : "▾"}
+            </span>
+          </button>
           {showCrew && (
             <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4 max-[900px]:grid-cols-1">
+              <div className="grid grid-cols-2 gap-4">
                 {displayedCrew.map((c) => (
                   <button
                     key={`${c.id}-${c.job}`}
@@ -139,19 +141,19 @@ export default function MovieCredits({ movie, credits }: Props) {
         </section>
 
         <section className="space-y-4" data-testid="credits-cast">
-          <Button
-            kind={BTN_KIND.tertiary}
-            size={BTN_SIZE.compact}
+          <button
+            type="button"
             onClick={() => setShowCast((v) => !v)}
-            overrides={{
-              BaseButton: { style: { paddingLeft: "0", paddingRight: "0", gap: "8px" } },
-            }}
+            className="flex items-center gap-2 text-2xl font-semibold bg-transparent border-none p-0 focus:outline-none"
+            style={{ color: "var(--text-primary, #fff)" }}
           >
-            <h2 className="text-2xl font-semibold">Casting</h2>
-            <span className="text-white/80 transition-colors text-lg">{showCast ? "▴" : "▾"}</span>
-          </Button>
+            Casting
+            <span className="text-lg" style={{ color: "var(--text-primary, #fff)" }}>
+              {showCast ? "▴" : "▾"}
+            </span>
+          </button>
           {showCast && (
-            <div className="space-y-4">
+            <div className="space-y-4 mb-5">
               <div className="grid grid-cols-6 gap-6 max-[1280px]:grid-cols-4 max-[768px]:grid-cols-2">
                 {displayedCast.map((actor: CastMember) => (
                   <button
