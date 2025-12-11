@@ -12,10 +12,6 @@ export default defineConfig({
     baseURL: "http://localhost:3001",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
-    env: {
-      E2E_MOCK: "1",
-      NEXT_PUBLIC_TMDB_API_KEY: "test-key",
-    },
   },
   projects: [
     {
