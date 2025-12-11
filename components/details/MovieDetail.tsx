@@ -39,6 +39,7 @@ export function MovieDetail({ data }: Props) {
   const router = useRouter();
   const { movie, trailers, crewBuckets, cast, totalCastCount } = data;
   const mainCast = cast.slice(0, 12);
+  const hasMoreCast = totalCastCount > mainCast.length;
 
   return (
     <div className="py-[60px]" data-testid="movie-detail">
@@ -186,7 +187,7 @@ export function MovieDetail({ data }: Props) {
         <div data-testid="movie-cast">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-semibold">Casting</h2>
-            {totalCastCount > mainCast.length && (
+            {hasMoreCast && (
               <span className="text-sm text-white/70">
                 +{totalCastCount - mainCast.length} supplémentaires
               </span>
@@ -220,6 +221,16 @@ export function MovieDetail({ data }: Props) {
                 <div className="text-xs text-[#999]">{actor.character}</div>
               </button>
             ))}
+            {hasMoreCast && (
+              <button
+                className="text-center cursor-pointer transition-transform duration-200 hover:scale-[1.02] border border-white/15 rounded-lg flex flex-col items-center justify-center min-h-[200px]"
+                onClick={() => router.push(`/movie/${movie.id}/credits`)}
+                data-testid="movie-cast-see-all"
+              >
+                <div className="text-lg font-semibold text-white mb-2">Voir tout</div>
+                <div className="text-sm text-white/70">Casting & Crédits</div>
+              </button>
+            )}
           </div>
         </div>
       )}
