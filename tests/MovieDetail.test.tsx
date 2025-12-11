@@ -6,13 +6,12 @@ import { MovieDetail } from "@/components/details/MovieDetail";
 import { MovieDetailView } from "@/components/details/types";
 import { CastMember, Video } from "@/lib/tmdb/types";
 
-const backMock = vi.fn();
-const openMock = vi.fn();
+const pushMock = vi.fn();
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({
-    back: backMock,
-    push: vi.fn(),
+    back: vi.fn(),
+    push: pushMock,
   }),
 }));
 
@@ -66,8 +65,7 @@ const baseData: MovieDetailView = {
 
 describe("MovieDetail", () => {
   beforeEach(() => {
-    backMock.mockClear();
-    openMock.mockReset();
+    pushMock.mockClear();
   });
 
   it("renders all key sections and counts", () => {
@@ -92,7 +90,7 @@ describe("MovieDetail", () => {
   it("goes back when clicking the retour button", () => {
     render(<MovieDetail data={baseData} />);
     fireEvent.click(screen.getByTestId("movie-back-button"));
-    expect(backMock).toHaveBeenCalledTimes(1);
+    expect(pushMock).toHaveBeenCalledWith("/");
   });
 
   it("advances trailers on mobile controls", () => {
@@ -109,9 +107,8 @@ describe("MovieDetail", () => {
   });
 
   it("opens credits page from see-all cast CTA", () => {
-    window.open = openMock as unknown as typeof window.open;
     render(<MovieDetail data={baseData} />);
     fireEvent.click(screen.getByTestId("movie-cast-see-all"));
-    expect(openMock).toHaveBeenCalledWith("/movie/123/credits", "_self");
+    expect(pushMock).toHaveBeenCalledWith("/movie/123/credits");
   });
 });
