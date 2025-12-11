@@ -42,7 +42,7 @@ export function MovieDetail({ data }: Props) {
   const hasMoreCast = totalCastCount > mainCast.length;
 
   return (
-    <div className="py-[60px]" data-testid="movie-detail">
+    <div className="py-[10px]" data-testid="movie-detail">
       <div className="mb-6">
         <Button
           onClick={() => router.back()}
@@ -134,7 +134,7 @@ export function MovieDetail({ data }: Props) {
         </div>
 
         {/* Right Column - Poster */}
-        <div className="max-[1024px]:-order-1" data-testid="movie-poster">
+        <div data-testid="movie-poster">
           {movie.posterUrl && (
             <div className="relative w-full pt-[150%] rounded-lg overflow-hidden bg-[#1a1a1a]">
               <Image
