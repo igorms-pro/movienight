@@ -17,8 +17,8 @@ export default function MovieCrewBuckets({ crewBuckets }: Props) {
     >
       {crewBuckets.map((bucket) => (
         <div key={bucket.label}>
-          <div className="text-lg text-white/90">{bucket.label}</div>
-          <div className="text-lg text-white">{bucket.names.join(", ")}</div>
+          <div className="text-lg text-theme-secondary">{bucket.label}</div>
+          <div className="text-lg text-theme-primary font-semibold">{bucket.names.join(", ")}</div>
         </div>
       ))}
     </div>

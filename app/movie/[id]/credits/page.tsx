@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+"use client";
+
+import { useEffect, useState } from "react";
 import { notFound } from "next/navigation";
 import { tmdbApi } from "@/lib/tmdb/api";
 import MovieCredits from "@/components/details/MovieCredits";
 import { MovieDetails } from "@/lib/tmdb/types";
-
-export const revalidate = 300;
 
 type PageProps = {
   params: { id: string };
@@ -63,37 +65,43 @@ function buildMockData(id: number) {
   return { movie, credits: movie.credits };
 }
 
-async function getData(id: number) {
-  if (process.env.E2E_MOCK === "1") {
-    return buildMockData(id);
-  }
-  try {
-    const movie = await tmdbApi.getMovieDetails(id);
-    if (!movie) return null;
-    const credits = movie.credits || null;
-    return { movie, credits };
-  } catch (error) {
-    console.error("Error loading credits page", error);
-    return null;
-  }
-}
-
-export default async function MovieCreditsPage({ params }: PageProps) {
+export default function MovieCreditsPage({ params }: PageProps) {
   const movieId = Number(params.id);
   if (!movieId || Number.isNaN(movieId)) {
     notFound();
   }
 
-  const data = await getData(movieId);
-  if (!data || !data.credits) {
-    notFound();
-  }
+  const [data, setData] = useState<{
+    movie: MovieDetails;
+    credits?: MovieDetails["credits"];
+  } | null>(null);
 
-  const { movie, credits } = data;
+  useEffect(() => {
+    let active = true;
+    const load = async () => {
+      try {
+        if (process.env.NEXT_PUBLIC_E2E_MOCK === "1" || process.env.E2E_MOCK === "1") {
+          if (active) setData(buildMockData(movieId));
+          return;
+        }
+        const movie = await tmdbApi.getMovieDetails(movieId);
+        if (!movie || !movie.credits) return;
+        if (active) setData({ movie, credits: movie.credits });
+      } catch (error) {
+        console.error("Error loading credits page", error);
+      }
+    };
+    load();
+    return () => {
+      active = false;
+    };
+  }, [movieId]);
+
+  if (!data || !data.credits) return null;
 
   return (
     <div data-page="credits">
-      <MovieCredits movie={movie} credits={credits} />
+      <MovieCredits movie={data.movie} credits={data.credits} />
     </div>
   );
 }

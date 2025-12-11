@@ -28,7 +28,7 @@ export function MovieDetail({ data }: Props) {
     <div className="py-[10px]" data-testid="movie-detail">
       <div className="mb-6">
         <Button
-          onClick={() => router.back()}
+          onClick={() => router.push("/")}
           kind={BTN_KIND.secondary}
           size={BTN_SIZE.compact}
           shape={BTN_SHAPE.pill}

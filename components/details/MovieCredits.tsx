@@ -31,6 +31,11 @@ type Props = {
 };
 
 export default function MovieCredits({ movie, credits }: Props) {
+  const scrollToTop = () => {
+    if (typeof window === "undefined") return;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const sortedCrew: CrewEntry[] = useMemo(() => sortCrew(credits.crew), [credits.crew]);
   const cast = credits.cast || [];
 
@@ -112,6 +117,21 @@ export default function MovieCredits({ movie, credits }: Props) {
           hasMore={displayedCast.length < cast.length}
         />
       </div>
+
+      <button
+        type="button"
+        onClick={scrollToTop}
+        className="md:hidden fixed bottom-6 right-4 z-30 w-11 h-11 rounded-full border flex items-center justify-center shadow-lg"
+        style={{
+          backgroundColor: "var(--surface-strong)",
+          color: "var(--text-primary)",
+          borderColor: "var(--border-strong)",
+        }}
+        aria-label="Remonter en haut"
+        data-testid="credits-scroll-top"
+      >
+        ↑
+      </button>
     </div>
   );
 }

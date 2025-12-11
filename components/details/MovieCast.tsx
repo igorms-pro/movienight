@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { Button, KIND as BTN_KIND, SIZE as BTN_SIZE } from "baseui/button";
+import { useRouter } from "next/navigation";
 import { CastMember } from "@/lib/tmdb/types";
 
 type Props = {
@@ -12,6 +13,7 @@ type Props = {
 };
 
 export default function MovieCast({ cast, totalCastCount, movieId }: Props) {
+  const router = useRouter();
   const mainCast = cast.slice(0, 12);
   const hasMoreCast = totalCastCount > mainCast.length;
 
@@ -64,7 +66,7 @@ export default function MovieCast({ cast, totalCastCount, movieId }: Props) {
           <Button
             kind={BTN_KIND.tertiary}
             size={BTN_SIZE.default}
-            onClick={() => window.open(`/movie/${movieId}/credits`, "_self")}
+            onClick={() => router.push(`/movie/${movieId}/credits`)}
             overrides={{
               BaseButton: {
                 style: {

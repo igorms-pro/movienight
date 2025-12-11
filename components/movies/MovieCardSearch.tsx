@@ -23,7 +23,10 @@ export default function MovieCardSearch({ movie }: Props) {
       className="text-left cursor-pointer transition-transform duration-150 hover:scale-[1.02]"
       data-testid="search-card"
     >
-      <div className="relative w-full pt-[150%] rounded-lg overflow-hidden bg-[#1a1a1a]">
+      <div
+        className="relative w-full pt-[150%] rounded-lg overflow-hidden"
+        style={{ backgroundColor: "var(--surface-elevated)" }}
+      >
         {posterUrl ? (
           <Image
             src={posterUrl}
@@ -34,14 +37,19 @@ export default function MovieCardSearch({ movie }: Props) {
             priority={false}
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center text-white/50 text-xs">
+          <div
+            className="absolute inset-0 flex items-center justify-center text-xs"
+            style={{ color: "var(--text-secondary)", backgroundColor: "var(--surface-elevated)" }}
+          >
             N/A
           </div>
         )}
       </div>
       <div className="mt-3 space-y-1">
-        <div className="font-semibold text-white leading-tight line-clamp-2">{movie.title}</div>
-        {year && <div className="text-sm text-white/60">{year}</div>}
+        <div className="font-semibold leading-tight line-clamp-2 text-theme-primary">
+          {movie.title}
+        </div>
+        {year && <div className="text-sm text-theme-secondary">{year}</div>}
       </div>
     </button>
   );
