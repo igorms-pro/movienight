@@ -65,7 +65,7 @@ export function MovieDetail({ data }: Props) {
           {movie.genres?.length > 0 && (
             <div className="flex flex-wrap gap-2 text-base" data-testid="movie-genres">
               {movie.genres.map((genre, idx) => (
-                <span key={genre.id} style={{ color: "var(--text-secondary)" }}>
+                <span key={genre.id} className="text-theme-secondary">
                   {genre.name}
                   {idx < movie.genres.length - 1 && ","}
                 </span>
@@ -75,10 +75,7 @@ export function MovieDetail({ data }: Props) {
 
           <div className="flex items-center gap-4" data-testid="movie-runtime-rating">
             {movie.runtime ? (
-              <span
-                className="text-base whitespace-nowrap"
-                style={{ color: "var(--text-secondary)" }}
-              >
+              <span className="text-base whitespace-nowrap text-theme-secondary">
                 {formatRuntime(movie.runtime)}
               </span>
             ) : null}
@@ -88,10 +85,7 @@ export function MovieDetail({ data }: Props) {
                 style={{ width: `${movie.userRating}%` }}
               />
             </div>
-            <span
-              className="text-sm font-semibold whitespace-nowrap"
-              style={{ color: "var(--text-primary)" }}
-            >
+            <span className="text-sm font-semibold whitespace-nowrap text-theme-primary">
               {movie.userRating}%
             </span>
           </div>
@@ -110,13 +104,9 @@ export function MovieDetail({ data }: Props) {
             </Button>
           </div>
 
-          <div
-            className="space-y-2"
-            data-testid="movie-synopsis"
-            style={{ color: "var(--text-primary)" }}
-          >
+          <div className="space-y-2 text-theme-primary" data-testid="movie-synopsis">
             <h2 className="text-xl font-semibold">Synopsis</h2>
-            <p className="text-base leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+            <p className="text-base leading-relaxed text-theme-secondary">
               {movie.overview || "Aucun synopsis disponible."}
             </p>
           </div>

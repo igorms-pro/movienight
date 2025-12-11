@@ -121,9 +121,7 @@ export default function MovieCarousel({
 
   return (
     <div className="w-full mb-[60px]" data-testid="movie-carousel" data-title={title}>
-      <h2 className="text-2xl font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
-        {title}
-      </h2>
+      <h2 className="text-2xl font-semibold mb-4 text-theme-primary">{title}</h2>
       <div className="relative max-w-[1150px] mx-auto px-3 md:px-4">
         <div className="hidden md:block relative">
           <Button

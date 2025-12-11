@@ -67,19 +67,13 @@ export default function CreditsCrew({
                   )}
                 </div>
                 <div>
-                  <div className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                    {c.job}
-                  </div>
-                  <div className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>
-                    {c.name}
-                  </div>
+                  <div className="text-sm text-theme-secondary">{c.job}</div>
+                  <div className="text-base font-semibold text-theme-primary">{c.name}</div>
                 </div>
               </button>
             ))}
             {displayedCrew.length === 0 && (
-              <div style={{ color: "var(--text-secondary)" }}>
-                Aucune donnée pour l&apos;équipe.
-              </div>
+              <div className="text-theme-secondary">Aucune donnée pour l&apos;équipe.</div>
             )}
           </div>
           {hasMore && (

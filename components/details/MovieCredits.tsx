@@ -58,6 +58,19 @@ export default function MovieCredits({ movie, credits }: Props) {
               <Button
                 kind={BTN_KIND.secondary}
                 size={BTN_SIZE.compact}
+                overrides={{
+                  BaseButton: {
+                    style: {
+                      color: "var(--text-primary)",
+                      backgroundColor: "var(--surface)",
+                      borderColor: "var(--border-strong)",
+                      ":hover": {
+                        backgroundColor: "var(--hover-surface)",
+                        borderColor: "var(--border-stronger)",
+                      },
+                    },
+                  },
+                }}
                 data-testid="credits-back-button"
               >
                 ← Retour
@@ -74,7 +87,7 @@ export default function MovieCredits({ movie, credits }: Props) {
         </div>
 
         {!hasData && (
-          <div style={{ color: "var(--text-secondary)" }} data-testid="credits-empty">
+          <div className="text-theme-secondary" data-testid="credits-empty">
             Aucune donnée de casting ou crédits disponible.
           </div>
         )}

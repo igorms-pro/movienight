@@ -56,9 +56,7 @@ function HeroSkeleton() {
 function CarouselSkeleton({ title }: { title: string }) {
   return (
     <div className="w-full mb-[60px]">
-      <h2 className="text-2xl font-semibold mb-4" style={{ color: "var(--text-primary)" }}>
-        {title}
-      </h2>
+      <h2 className="text-2xl font-semibold mb-4 text-theme-primary">{title}</h2>
       <div className="relative max-w-[1150px] mx-auto px-4">
         <div className="flex gap-[12px] overflow-hidden">
           {Array.from({ length: 6 }).map((_, idx) => (

@@ -88,4 +88,12 @@ a {
   z-index: -1;
 }
 
+/* Theme-aware text helpers */
+.text-theme-primary {
+  color: var(--text-primary);
+}
+.text-theme-secondary {
+  color: var(--text-secondary);
+}
+
 /* Ensure light theme keeps readable text even when legacy Tailwind white classes are used */

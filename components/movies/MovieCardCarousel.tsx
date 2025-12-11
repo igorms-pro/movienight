@@ -97,10 +97,7 @@ export default function MovieCardCarousel({
       />
 
       <div className="p-3">
-        <h3
-          className="text-sm font-semibold mb-2 overflow-hidden text-ellipsis whitespace-nowrap leading-[1.4]"
-          style={{ color: "var(--text-primary)" }}
-        >
+        <h3 className="text-sm font-semibold mb-2 overflow-hidden text-ellipsis whitespace-nowrap leading-[1.4] text-theme-primary">
           {movie.title}
         </h3>
         {showRating && rating !== null ? (
@@ -111,12 +108,7 @@ export default function MovieCardCarousel({
                 style={{ width: `${rating}%` }}
               />
             </div>
-            <span
-              className="text-sm font-semibold min-w-[32px]"
-              style={{ color: "var(--text-primary)" }}
-            >
-              {rating}%
-            </span>
+            <span className="text-sm font-semibold min-w-[32px] text-theme-primary">{rating}%</span>
           </div>
         ) : showDuration && runtime ? (
           <p className="text-xs text-[#999]">{formatRuntime(runtime)}</p>
