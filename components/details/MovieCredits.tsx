@@ -74,7 +74,7 @@ export default function MovieCredits({ movie, credits }: Props) {
         </div>
 
         {!hasData && (
-          <div className="text-white/80" data-testid="credits-empty">
+          <div style={{ color: "var(--text-secondary)" }} data-testid="credits-empty">
             Aucune donnée de casting ou crédits disponible.
           </div>
         )}

@@ -67,12 +67,19 @@ export default function CreditsCast({
                     </div>
                   )}
                 </div>
-                <div className="text-sm font-semibold mb-1 text-white">{actor.name}</div>
-                <div className="text-xs text-[#999]">{actor.character}</div>
+                <div
+                  className="text-sm font-semibold mb-1"
+                  style={{ color: "var(--text-primary)" }}
+                >
+                  {actor.name}
+                </div>
+                <div className="text-xs" style={{ color: "var(--text-secondary)" }}>
+                  {actor.character}
+                </div>
               </button>
             ))}
             {displayedCast.length === 0 && (
-              <div className="text-white/60">Aucune donnée pour le casting.</div>
+              <div style={{ color: "var(--text-secondary)" }}>Aucune donnée pour le casting.</div>
             )}
           </div>
           {hasMore && (

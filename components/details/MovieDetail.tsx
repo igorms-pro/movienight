@@ -63,12 +63,9 @@ export function MovieDetail({ data }: Props) {
           </div>
 
           {movie.genres?.length > 0 && (
-            <div
-              className="flex flex-wrap gap-2 text-base text-white/70"
-              data-testid="movie-genres"
-            >
+            <div className="flex flex-wrap gap-2 text-base" data-testid="movie-genres">
               {movie.genres.map((genre, idx) => (
-                <span key={genre.id}>
+                <span key={genre.id} style={{ color: "var(--text-secondary)" }}>
                   {genre.name}
                   {idx < movie.genres.length - 1 && ","}
                 </span>
@@ -78,7 +75,10 @@ export function MovieDetail({ data }: Props) {
 
           <div className="flex items-center gap-4" data-testid="movie-runtime-rating">
             {movie.runtime ? (
-              <span className="text-base text-white/70 whitespace-nowrap">
+              <span
+                className="text-base whitespace-nowrap"
+                style={{ color: "var(--text-secondary)" }}
+              >
                 {formatRuntime(movie.runtime)}
               </span>
             ) : null}
@@ -88,7 +88,10 @@ export function MovieDetail({ data }: Props) {
                 style={{ width: `${movie.userRating}%` }}
               />
             </div>
-            <span className="text-sm font-semibold text-white whitespace-nowrap">
+            <span
+              className="text-sm font-semibold whitespace-nowrap"
+              style={{ color: "var(--text-primary)" }}
+            >
               {movie.userRating}%
             </span>
           </div>
@@ -107,9 +110,13 @@ export function MovieDetail({ data }: Props) {
             </Button>
           </div>
 
-          <div className="space-y-2" data-testid="movie-synopsis">
+          <div
+            className="space-y-2"
+            data-testid="movie-synopsis"
+            style={{ color: "var(--text-primary)" }}
+          >
             <h2 className="text-xl font-semibold">Synopsis</h2>
-            <p className="text-base leading-relaxed text-white/80">
+            <p className="text-base leading-relaxed" style={{ color: "var(--text-secondary)" }}>
               {movie.overview || "Aucun synopsis disponible."}
             </p>
           </div>
