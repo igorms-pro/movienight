@@ -236,6 +236,10 @@ export function MovieDetail({ data }: Props) {
                       color: "#fff",
                       backgroundColor: "rgba(255,255,255,0.06)",
                       borderColor: "rgba(255,255,255,0.12)",
+                      ":hover": {
+                        backgroundColor: "rgba(255,255,255,0.12)",
+                        borderColor: "rgba(255,255,255,0.2)",
+                      },
                     },
                   },
                 }}

@@ -49,6 +49,7 @@ export default function MovieCredits({ movie, credits }: Props) {
 
   const displayedCrew = sortedCrew.slice(0, crewCount);
   const displayedCast = cast.slice(0, castCount);
+  const hasData = displayedCrew.length > 0 || displayedCast.length > 0;
 
   return (
     <div className="py-[60px] flex justify-center" data-testid="credits-page">
@@ -61,6 +62,12 @@ export default function MovieCredits({ movie, credits }: Props) {
           </Link>
           <h1 className="text-3xl font-bold">{movie.title} — Crédits & Casting</h1>
         </div>
+
+        {!hasData && (
+          <div className="text-white/80" data-testid="credits-empty">
+            Aucune donnée de casting ou crédits disponible.
+          </div>
+        )}
 
         <section className="space-y-4" data-testid="credits-crew">
           <Button
@@ -110,6 +117,9 @@ export default function MovieCredits({ movie, credits }: Props) {
                     </div>
                   </button>
                 ))}
+                {displayedCrew.length === 0 && (
+                  <div className="text-white/60">Aucune donnée pour l&apos;équipe.</div>
+                )}
               </div>
               {displayedCrew.length < sortedCrew.length && (
                 <Button
@@ -168,6 +178,9 @@ export default function MovieCredits({ movie, credits }: Props) {
                     <div className="text-xs text-[#999]">{actor.character}</div>
                   </button>
                 ))}
+                {displayedCast.length === 0 && (
+                  <div className="text-white/60">Aucune donnée pour le casting.</div>
+                )}
               </div>
               {displayedCast.length < cast.length && (
                 <Button

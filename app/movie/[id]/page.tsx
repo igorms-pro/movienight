@@ -1,44 +1,12 @@
 import { notFound } from "next/navigation";
 import MovieDetail, { MovieDetailView } from "@/components/details/MovieDetail";
 import { tmdbApi } from "@/lib/tmdb/api";
-import { MovieDetails } from "@/lib/tmdb/types";
+import { pickCertification, pickCrewBuckets, pickTrailers } from "@/lib/movie/normalizers";
 
 export const revalidate = 300;
 
 type PageProps = {
   params: { id: string };
-};
-
-const pickCertification = (releaseDates: MovieDetails["release_dates"]) => {
-  const preferredRegions = ["US", "FR", "GB"];
-  const entries = releaseDates?.results || [];
-  for (const region of preferredRegions) {
-    const cert = entries
-      .find((r) => r.iso_3166_1 === region)
-      ?.release_dates?.find((d) => d.certification)?.certification;
-    if (cert) return cert;
-  }
-  return null;
-};
-
-const pickTrailers = (videos: MovieDetails["videos"]) =>
-  videos?.results?.filter((v) => v.type === "Trailer").slice(0, 3) || [];
-
-const pickCrewBuckets = (crew: NonNullable<MovieDetails["credits"]>["crew"] = []) => {
-  const uniqueNames = (list: typeof crew) => Array.from(new Set(list.map((c) => c.name)));
-  const buckets = [
-    { label: "Director", names: uniqueNames(crew.filter((c) => c.job === "Director")) },
-    { label: "Producer", names: uniqueNames(crew.filter((c) => c.job === "Producer")) },
-    {
-      label: "Executive Producer",
-      names: uniqueNames(crew.filter((c) => c.job === "Executive Producer")),
-    },
-    {
-      label: "Screenplay, Story",
-      names: uniqueNames(crew.filter((c) => ["Screenplay", "Writer", "Story"].includes(c.job))),
-    },
-  ];
-  return buckets.filter((b) => b.names.length > 0).slice(0, 4);
 };
 
 async function getMovieData(id: number): Promise<MovieDetailView | null> {
