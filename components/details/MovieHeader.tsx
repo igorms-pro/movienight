@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Button, KIND as BTN_KIND, SHAPE as BTN_SHAPE, SIZE as BTN_SIZE } from "baseui/button";
-import { MovieDetailView } from "./MovieDetail";
+import { MovieDetailView } from "./types";
 
 const formatRuntime = (minutes: number) => {
   if (!minutes || minutes <= 0) return null;

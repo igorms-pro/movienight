@@ -4,28 +4,10 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button, KIND as BTN_KIND, SHAPE as BTN_SHAPE, SIZE as BTN_SIZE } from "baseui/button";
-import { MovieDetails, Video, Credits } from "@/lib/tmdb/types";
+import { MovieDetailView } from "./types";
 import MovieCrewBuckets from "./MovieCrewBuckets";
 import MovieTrailers from "./MovieTrailers";
 import MovieCast from "./MovieCast";
-
-type CrewBucket = { label: string; names: string[] };
-
-export type MovieDetailView = {
-  movie: Pick<
-    MovieDetails,
-    "id" | "title" | "overview" | "runtime" | "genres" | "release_date" | "vote_average"
-  > & {
-    releaseYear: number;
-    certification: string | null;
-    userRating: number;
-    posterUrl: string | null;
-  };
-  trailers: Video[];
-  crewBuckets: CrewBucket[];
-  cast: Credits["cast"];
-  totalCastCount: number;
-};
 
 type Props = {
   data: MovieDetailView;

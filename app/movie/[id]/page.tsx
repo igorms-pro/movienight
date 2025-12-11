@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import MovieDetail, { MovieDetailView } from "@/components/details/MovieDetail";
+import MovieDetail from "@/components/details/MovieDetail";
+import { MovieDetailView } from "@/components/details/types";
 import { tmdbApi } from "@/lib/tmdb/api";
 import { pickCertification, pickCrewBuckets, pickTrailers } from "@/lib/movie/normalizers";
 
