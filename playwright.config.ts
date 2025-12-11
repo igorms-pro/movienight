@@ -27,6 +27,7 @@ export default defineConfig({
     env: {
       E2E_MOCK: "1",
       NEXT_PUBLIC_TMDB_API_KEY: "test-key",
+      NEXT_PUBLIC_E2E_MOCK: "1",
     },
   },
 });

@@ -9,7 +9,7 @@ import {
   TrendingResponse,
 } from "./types";
 
-const isE2EMock = process.env.E2E_MOCK === "1";
+const isE2EMock = process.env.E2E_MOCK === "1" || process.env.NEXT_PUBLIC_E2E_MOCK === "1";
 
 const makeMovie = (id: number): Movie => ({
   id,
