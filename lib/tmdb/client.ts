@@ -18,8 +18,59 @@ export const tmdbClient: AxiosInstance = axios.create({
 });
 
 export async function request<T>(url: string, config?: AxiosRequestConfig) {
-  const { data } = await tmdbClient.get<T>(url, config);
-  return data;
+  try {
+    const { data } = await tmdbClient.get<T>(url, config);
+    return data;
+  } catch (error) {
+    // Structured error logging for TMDB API failures
+    const isDev = process.env.NODE_ENV === "development";
+    const errorContext = {
+      url,
+      baseURL,
+      params: config?.params,
+      timestamp: new Date().toISOString(),
+    };
+
+    if (axios.isAxiosError(error)) {
+      const logData = {
+        ...errorContext,
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        message: error.message,
+        code: error.code,
+      };
+
+      // Log full error details in development only
+      if (isDev) {
+        console.error("[TMDB API Error]", logData);
+      } else {
+        // Production: minimal logging to avoid exposing sensitive data
+        console.error("[TMDB API Error]", {
+          url,
+          status: error.response?.status,
+          timestamp: errorContext.timestamp,
+        });
+      }
+    } else {
+      // Non-Axios errors (network, timeout, etc.)
+      const logData = {
+        ...errorContext,
+        error: error instanceof Error ? error.message : "Unknown error",
+      };
+
+      if (isDev) {
+        console.error("[TMDB Request Failed]", logData);
+      } else {
+        console.error("[TMDB Request Failed]", {
+          url,
+          timestamp: errorContext.timestamp,
+        });
+      }
+    }
+
+    // Re-throw to maintain existing error handling behavior
+    throw error;
+  }
 }
 
 export const tmdbLanguage = language;
