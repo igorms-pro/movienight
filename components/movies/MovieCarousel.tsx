@@ -160,12 +160,15 @@ export default function MovieCarousel({
                   alignItems: "center",
                   justifyContent: "center",
                   opacity: $disabled ? 0.3 : 1,
+                  backgroundColor: "var(--surface-strong)",
+                  borderColor: "var(--border-strong)",
+                  color: "var(--text-primary)",
                 }),
               },
             }}
             aria-label="Scroll left"
           >
-            <ArrowLeft size={24} />
+            <ArrowLeft size={24} color="var(--text-primary)" />
           </Button>
 
           <div
@@ -218,12 +221,15 @@ export default function MovieCarousel({
                   alignItems: "center",
                   justifyContent: "center",
                   opacity: $disabled ? 0.3 : 1,
+                  backgroundColor: "var(--surface-strong)",
+                  borderColor: "var(--border-strong)",
+                  color: "var(--text-primary)",
                 }),
               },
             }}
             aria-label="Scroll right"
           >
-            <ArrowRight size={24} />
+            <ArrowRight size={24} color="var(--text-primary)" />
           </Button>
         </div>
 
@@ -271,7 +277,7 @@ export default function MovieCarousel({
               aria-label="Précédent"
               data-testid="movie-carousel-mobile-prev"
             >
-              <ArrowLeft size={20} />
+              <ArrowLeft size={20} color="var(--text-primary)" />
             </Button>
             <Button
               onClick={() => handleMobileNav("right")}
@@ -282,7 +288,7 @@ export default function MovieCarousel({
               aria-label="Suivant"
               data-testid="movie-carousel-mobile-next"
             >
-              <ArrowRight size={20} />
+              <ArrowRight size={20} color="var(--text-primary)" />
             </Button>
           </div>
         </div>
