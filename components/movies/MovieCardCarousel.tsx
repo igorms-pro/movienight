@@ -97,7 +97,11 @@ export default function MovieCardCarousel({
       />
 
       <div className="p-3">
-        <h3 className="text-sm font-semibold mb-2 overflow-hidden text-ellipsis whitespace-nowrap leading-[1.4] text-theme-primary">
+        <h3
+          className={`text-sm font-semibold mb-2 overflow-hidden text-ellipsis whitespace-nowrap leading-[1.4] text-theme-primary ${
+            showDuration ? "font-heading" : ""
+          }`}
+        >
           {movie.title}
         </h3>
         {showRating && rating !== null ? (

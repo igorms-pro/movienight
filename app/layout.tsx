@@ -2,11 +2,22 @@ import "./globals.css";
 import type { ReactNode } from "react";
 import { Suspense } from "react";
 import Script from "next/script";
-import { Inter } from "next/font/google";
+import { Archivo_Narrow, Inter } from "next/font/google";
 import Providers from "@/components/Providers";
 import Header from "@/components/Header";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const archivoNarrow = Archivo_Narrow({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "700"],
+  variable: "--font-archivo-narrow",
+});
 
 export const metadata = {
   title: "MovieNight",
@@ -15,7 +26,11 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="fr" className={inter.className} suppressHydrationWarning>
+    <html
+      lang="fr"
+      className={`${inter.variable} ${archivoNarrow.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <link rel="icon" href="/home-bg.png" type="image/png" />
         <Script

@@ -27,7 +27,7 @@ export default function CreditsCrew({
       <button
         type="button"
         onClick={onToggle}
-        className="flex items-center gap-2 text-2xl font-semibold bg-transparent border-none p-0 focus:outline-none"
+        className="flex items-center gap-2 text-2xl font-semibold bg-transparent border-none p-0 focus:outline-none font-heading"
         style={{ color: "var(--text-primary, #fff)" }}
         data-testid="credits-crew-toggle"
         aria-expanded={showCrew}
@@ -77,8 +77,10 @@ export default function CreditsCrew({
                   )}
                 </div>
                 <div>
-                  <div className="text-sm text-theme-secondary">{c.job}</div>
-                  <div className="text-base font-semibold text-theme-primary">{c.name}</div>
+                  <div className="text-sm text-theme-secondary font-heading">{c.job}</div>
+                  <div className="text-base font-semibold text-theme-primary font-heading">
+                    {c.name}
+                  </div>
                 </div>
               </button>
             ))}

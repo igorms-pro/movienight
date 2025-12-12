@@ -47,7 +47,7 @@ function SearchPageContent() {
   return (
     <div className="w-full max-w-[1180px] mx-auto px-3 md:px-0 pb-14" data-testid="search-page">
       <div className="mb-8">
-        <h1 className="text-[32px] font-semibold uppercase">
+        <h1 className="text-[32px] font-semibold uppercase font-heading">
           {query ? `${query}${totalResults ? ` — ${totalResults} résultats` : ""}` : "Recherche"}
         </h1>
         {error && <p className="text-red-400 mt-2">{error}</p>}

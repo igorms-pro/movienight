@@ -46,7 +46,7 @@ export default function MovieCardSearch({ movie }: Props) {
         )}
       </div>
       <div className="mt-3 space-y-1">
-        <div className="font-semibold leading-tight line-clamp-2 text-theme-primary">
+        <div className="font-semibold leading-tight line-clamp-2 text-theme-primary font-heading">
           {movie.title}
         </div>
         {year && <div className="text-sm text-theme-secondary">{year}</div>}

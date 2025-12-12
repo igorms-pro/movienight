@@ -70,7 +70,7 @@ export default function HeroCarousel({ movies }: Props) {
         <div className="absolute bottom-0 left-0 right-0 h-[140px] md:h-[200px] z-20 bg-[linear-gradient(to_top,rgba(0,0,0,0.9),transparent)]" />
 
         <div className="absolute bottom-0 left-0 right-0 flex flex-col justify-end z-30 px-4 pb-5 md:px-8 md:pb-8">
-          <h1 className="text-2xl md:text-[48px] font-bold mb-3 md:mb-4 text-white uppercase max-w-[320px] md:max-w-[500px] leading-[1.1]">
+          <h1 className="text-2xl md:text-[48px] font-bold mb-3 md:mb-4 text-white uppercase max-w-[320px] md:max-w-[500px] leading-[1.1] font-heading">
             {currentMovie.title} ({new Date(currentMovie.release_date).getFullYear()})
           </h1>
           <div className="hidden md:flex gap-3 md:gap-4 items-start">

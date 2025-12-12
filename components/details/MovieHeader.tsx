@@ -19,7 +19,7 @@ export default function MovieHeader({ movie }: Props) {
   return (
     <div className="max-w-[600px]" data-testid="movie-overview">
       <div className="flex items-center gap-4 mb-4">
-        <h1 className="text-[42px] md:text-[48px] font-bold uppercase leading-[1.1]">
+        <h1 className="text-[42px] md:text-[48px] font-bold uppercase leading-[1.1] font-heading">
           {movie.title} ({movie.releaseYear})
         </h1>
         {movie.certification && (
@@ -30,7 +30,7 @@ export default function MovieHeader({ movie }: Props) {
       </div>
 
       {movie.genres?.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-4 text-base text-white/70">
+        <div className="flex flex-wrap gap-2 mb-4 text-base text-white/70 font-heading">
           {movie.genres.map((genre, idx) => (
             <span key={genre.id}>
               {genre.name}

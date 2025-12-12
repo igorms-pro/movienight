@@ -34,7 +34,7 @@ export default function Header() {
         >
           <Link href="/" aria-label="Retour à l'accueil">
             <h1
-              className="text-[20px] lg:text-[32px] font-bold uppercase tracking-[2px] m-0"
+              className="text-[20px] lg:text-[32px] font-bold uppercase tracking-[2px] m-0 font-heading"
               style={{ color: "var(--text-primary)" }}
             >
               MOVIENIGHT

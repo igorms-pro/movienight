@@ -101,6 +101,7 @@ export default function SearchBar() {
           overrides={{
             Root: {
               style: {
+                fontFamily: "var(--font-archivo-narrow), var(--font-inter), system-ui, sans-serif",
                 borderTopLeftRadius: "8px",
                 borderTopRightRadius: "8px",
                 borderBottomRightRadius: "8px",
@@ -133,6 +134,7 @@ export default function SearchBar() {
             },
             Input: {
               style: {
+                fontFamily: "var(--font-archivo-narrow), var(--font-inter), system-ui, sans-serif",
                 backgroundColor: "transparent",
                 color: "var(--text-primary)",
                 "::placeholder": {

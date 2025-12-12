@@ -83,7 +83,7 @@ export default function MovieCredits({ movie, credits }: Props) {
             </Link>
           </div>
           <h1
-            className="text-3xl font-bold"
+            className="text-3xl font-bold font-heading"
             style={{ color: "var(--text-primary, #fff)" }}
             data-testid="credits-title"
           >

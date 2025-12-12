@@ -43,7 +43,7 @@ export function MovieDetail({ data }: Props) {
         <div className="flex flex-col gap-6 order-2 md:order-1" data-testid="movie-overview">
           <div className="flex items-start gap-4" data-testid="movie-title-row">
             <h1
-              className="text-[32px] md:text-[48px] font-bold uppercase leading-[1.1]"
+              className="text-[32px] md:text-[48px] font-bold uppercase leading-[1.1] font-heading"
               data-testid="movie-title"
             >
               {movie.title} ({movie.releaseYear})
@@ -63,7 +63,7 @@ export function MovieDetail({ data }: Props) {
           </div>
 
           {movie.genres?.length > 0 && (
-            <div className="flex flex-wrap gap-2 text-base" data-testid="movie-genres">
+            <div className="flex flex-wrap gap-2 text-base font-heading" data-testid="movie-genres">
               {movie.genres.map((genre, idx) => (
                 <span key={genre.id} className="text-theme-secondary">
                   {genre.name}
@@ -105,8 +105,8 @@ export function MovieDetail({ data }: Props) {
           </div>
 
           <div className="space-y-2 text-theme-primary" data-testid="movie-synopsis">
-            <h2 className="text-xl font-semibold">Synopsis</h2>
-            <p className="text-base leading-relaxed text-theme-secondary">
+            <h2 className="text-xl font-semibold font-heading">Synopsis</h2>
+            <p className="text-base leading-relaxed text-theme-secondary font-heading">
               {movie.overview || "Aucun synopsis disponible."}
             </p>
           </div>
