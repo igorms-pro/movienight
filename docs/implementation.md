@@ -4,11 +4,13 @@ Auteur : I. (développement et intégration UI/SSR)
 
 ## Architecture
 
-- Next.js 14 App Router, React 18.
-- UI : Base Web + Styletron, thèmes clair/sombre, fonts Inter + Archivo Narrow.
-- State : Zustand (`movieStore`) pour partager le film courant (fond dynamique).
-- Animations : GSAP (entry/scroll), garde-fous SSR/test.
-- Pages : `/` (hero + carrousels), `/search`, `/movie/[id]`, `/movie/[id]/credits`.
+- Next.js 14 App Router (RSC + client components), React 18, SSR statique + revalidate 300s sur les pages movie.
+- Providers : Styletron/Base Web engin serveur côté RSC, engin client côté browser (cf. `components/Providers.tsx`).
+- UI : Base Web + Styletron theming (clair/sombre), fonts Inter + Archivo Narrow (vars CSS sur `<html>`), global tokens dans `app/globals.css`.
+- State global : Zustand (`store/movieStore.ts`) pour le film courant (pilote le fond dynamique) et la recherche.
+- Data flow : TMDB via `lib/tmdb/api.ts` (client axios `lib/tmdb/client.ts`, normalizers `lib/movie/*`). E2E_MOCK pour bypass réseau en tests/e2e.
+- Animations : GSAP + ScrollTrigger encapsulés dans `lib/gsapClient.ts` (guards SSR/test, filtering de refs).
+- Routing/pages : `/` (hero + carrousels), `/search`, `/movie/[id]`, `/movie/[id]/credits`; `loading.tsx` dédiés pour les routes movie/credits.
 
 ## Données / TMDB
 
