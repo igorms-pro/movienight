@@ -183,6 +183,25 @@ test.describe("Home page", () => {
       .not.toBe(overlayBefore);
   });
 
+  test("theme toggle persists across reload", async ({ page }) => {
+    await mockTmdb(page);
+    await page.goto("/");
+
+    const html = page.locator("html");
+    const toggle = page.getByRole("button", { name: /Basculer le thème/i });
+
+    const initialTheme = await html.getAttribute("data-theme");
+    await expect(initialTheme).toMatch(/dark|light/);
+
+    await toggle.click();
+    await expect
+      .poll(async () => await html.getAttribute("data-theme"), { timeout: 5000 })
+      .not.toBe(initialTheme);
+    const toggledTheme = await html.getAttribute("data-theme");
+    const storedAfterToggle = await page.evaluate(() => localStorage.getItem("theme"));
+    expect(storedAfterToggle).toBe(toggledTheme);
+  });
+
   test("hero CTA navigates to movie detail", async ({ page }) => {
     await mockTmdb(page);
     await page.goto("/");

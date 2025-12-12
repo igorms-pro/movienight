@@ -100,4 +100,9 @@ test.describe("Movie detail page", () => {
     await page.getByTestId("movie-scroll-top").click();
     await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(50);
   });
+
+  test("shows not found when id is invalid", async ({ page }) => {
+    await page.goto("/movie/0");
+    await expect(page.getByText(/could not be found/i)).toBeVisible();
+  });
 });

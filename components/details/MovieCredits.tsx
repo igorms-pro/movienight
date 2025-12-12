@@ -73,15 +73,6 @@ export default function MovieCredits({ movie, credits }: Props) {
 
   React.useEffect(() => {
     setCurrentMovie(movie);
-    if (process.env.NODE_ENV !== "production") {
-      // eslint-disable-next-line no-console
-      console.info("[BG] credits setCurrentMovie", {
-        id: movie.id,
-        title: movie.title,
-        backdrop: movie.backdrop_path,
-        posterUrl: movie.poster_path,
-      });
-    }
     return () => setCurrentMovie(null);
   }, [movie, setCurrentMovie]);
 

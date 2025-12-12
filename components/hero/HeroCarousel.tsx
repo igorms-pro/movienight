@@ -41,14 +41,6 @@ export default function HeroCarousel({ movies }: Props) {
   useEffect(() => {
     if (currentMovie) {
       setCurrentMovie(currentMovie);
-      if (process.env.NODE_ENV !== "production") {
-        // eslint-disable-next-line no-console
-        console.info("[BG] hero setCurrentMovie", {
-          id: currentMovie.id,
-          title: currentMovie.title,
-          backdrop: currentMovie.backdrop_path,
-        });
-      }
     }
   }, [currentMovie, setCurrentMovie]);
 

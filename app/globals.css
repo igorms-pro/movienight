@@ -2,6 +2,9 @@
 
 :root {
   --bg-base: #0b0b0d;
+  --bg-overlay: rgba(11, 11, 13, 0.45);
+  --bg-overlay-strong: rgba(11, 11, 13, 0.65);
+  --bg-blur-brightness: 0.65;
   --surface: #111118;
   --surface-elevated: #1a1a1f;
   --surface-strong: #0f0f14;
@@ -23,6 +26,9 @@
 
 [data-theme="light"] {
   --bg-base: #f3f5fa;
+  --bg-overlay: rgba(248, 250, 252, 0.35);
+  --bg-overlay-strong: rgba(248, 250, 252, 0.5);
+  --bg-blur-brightness: 1.25;
   --surface: #f8fafc;
   --surface-elevated: #eef1f8;
   --surface-strong: #f6f8fc;
@@ -55,7 +61,7 @@ body {
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: var(--bg-base);
+  background-color: transparent;
   color: var(--text-primary);
   font-family:
     var(--font-inter),
