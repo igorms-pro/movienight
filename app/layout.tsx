@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="fr" className={inter.className} suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/home-bg.png" />
+        <link rel="icon" href="/home-bg.png" type="image/png" />
         <Script
           id="theme-sync"
           strategy="beforeInteractive"

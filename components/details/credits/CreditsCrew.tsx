@@ -91,6 +91,7 @@ export default function CreditsCrew({
               kind={BTN_KIND.secondary}
               size={BTN_SIZE.compact}
               onClick={onShowMore}
+              aria-label={`Voir plus (${crew.length - displayedCrew.length} restants)`}
               overrides={{
                 BaseButton: {
                   style: {
