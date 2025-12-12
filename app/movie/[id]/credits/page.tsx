@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
+import dynamic from "next/dynamic";
 import { tmdbApi } from "@/lib/tmdb/api";
-import MovieCredits from "@/components/details/MovieCredits";
 import { MovieDetails } from "@/lib/tmdb/types";
+
+const MovieCredits = dynamic(() => import("@/components/details/MovieCredits"), { ssr: false });
 
 export const revalidate = 300;
 

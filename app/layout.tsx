@@ -2,8 +2,6 @@ import "./globals.css";
 import type { ReactNode } from "react";
 import { Suspense } from "react";
 import Script from "next/script";
-import { Server } from "styletron-engine-atomic";
-import { styletron } from "@/lib/styletron";
 import { Inter } from "next/font/google";
 import Providers from "@/components/Providers";
 import Header from "@/components/Header";
@@ -16,18 +14,9 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  const stylesheets = styletron instanceof Server ? styletron.getStylesheets() : [];
-
   return (
     <html lang="fr" className={inter.className} suppressHydrationWarning>
       <head>
-        {stylesheets.map((sheet) => (
-          <style
-            key={sheet.attrs["data-hydrate"]}
-            {...sheet.attrs}
-            dangerouslySetInnerHTML={{ __html: sheet.css }}
-          />
-        ))}
         <Script
           id="theme-sync"
           strategy="beforeInteractive"
