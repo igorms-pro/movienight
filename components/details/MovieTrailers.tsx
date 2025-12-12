@@ -14,7 +14,8 @@ const TrailerCard = ({ video, isActive }: { video: Video; isActive: boolean }) =
     className={`w-full transition-opacity duration-300 ${isActive ? "opacity-100" : "opacity-0"}`}
   >
     <div
-      className="relative w-full pt-[56.25%] bg-[#1a1a1a] rounded-lg overflow-hidden mb-2"
+      className="relative w-full pt-[56.25%] rounded-lg overflow-hidden mb-2"
+      style={{ backgroundColor: "var(--surface-elevated)" }}
       data-testid="trailer-thumbnail"
     >
       <Image
@@ -30,7 +31,9 @@ const TrailerCard = ({ video, isActive }: { video: Video; isActive: boolean }) =
         </div>
       </div>
     </div>
-    <p className="text-sm text-[#999] uppercase">{video.type}</p>
+    <p className="text-sm uppercase" style={{ color: "var(--text-secondary)" }}>
+      {video.type}
+    </p>
   </div>
 );
 

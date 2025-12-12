@@ -30,6 +30,7 @@ export default function CreditsCrew({
         className="flex items-center gap-2 text-2xl font-semibold bg-transparent border-none p-0 focus:outline-none"
         style={{ color: "var(--text-primary, #fff)" }}
         data-testid="credits-crew-toggle"
+        aria-expanded={showCrew}
       >
         Équipe
         <span className="text-lg" style={{ color: "var(--text-primary, #fff)" }}>

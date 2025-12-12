@@ -30,6 +30,7 @@ export default function CreditsCast({
         className="flex items-center gap-2 text-2xl font-semibold bg-transparent border-none p-0 focus:outline-none"
         style={{ color: "var(--text-primary, #fff)" }}
         data-testid="credits-cast-toggle"
+        aria-expanded={showCast}
       >
         Casting
         <span className="text-lg" style={{ color: "var(--text-primary, #fff)" }}>
@@ -90,6 +91,7 @@ export default function CreditsCast({
               size={BTN_SIZE.compact}
               onClick={onShowMore}
               data-testid="credits-cast-more"
+              aria-label={`Voir plus (${cast.length - displayedCast.length} restants)`}
             >
               Voir plus ({cast.length - displayedCast.length} restants)
             </Button>

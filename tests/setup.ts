@@ -6,7 +6,16 @@ import { vi } from "vitest";
 vi.mock("next/image", () => ({
   __esModule: true,
   default: (props: React.ComponentProps<"img">) => {
-    const { alt, ...rest } = props;
-    return React.createElement("img", { ...rest, alt: alt ?? "" });
+    const { alt, fill, priority, quality, unoptimized, ...rest } = props as Record<string, unknown>;
+    const normalized = {
+      ...rest,
+      alt: alt ?? "",
+      // Stringify non-boolean-safe props to silence React warnings in tests
+      fill: fill === true ? "true" : fill === false ? "false" : fill,
+      priority: priority === true ? "true" : priority === false ? "false" : priority,
+      quality: quality ?? undefined,
+      unoptimized: unoptimized === true ? "true" : unoptimized === false ? "false" : unoptimized,
+    };
+    return React.createElement("img", normalized);
   },
 }));
