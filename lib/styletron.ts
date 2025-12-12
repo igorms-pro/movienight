@@ -1,9 +1,15 @@
 import { Client, Server } from "styletron-engine-atomic";
 
-const getHydrate = () =>
-  typeof document !== "undefined"
-    ? (Array.from(document.getElementsByClassName("_styletron_hydrate_")) as HTMLStyleElement[])
-    : [];
-
-export const createClientEngine = () => new Client({ hydrate: getHydrate() });
-export const createServerEngine = () => new Server();
+/**
+ * Create appropriate Styletron engine based on environment
+ * - Server engine for SSR (supports getStylesheets for extracting CSS)
+ * - Client engine for browser (supports hydration)
+ */
+export const createStyletronEngine = () => {
+  if (typeof window === "undefined") {
+    // SSR: use Server engine
+    return new Server();
+  }
+  // Client: use Client engine
+  return new Client();
+};
