@@ -34,6 +34,7 @@ Auteur : I. (développement et intégration UI/SSR)
 - Unitaires : Vitest + Testing Library.
 - E2E : Playwright (`pnpm test:e2e`).
 - ESLint + Prettier + TypeScript strict ; Husky pré-push lance lint/typecheck/tests unitaires.
+- CI/CD : GitHub Actions (`.github/workflows/ci.yml`) — lint, typecheck, unit tests, E2E sur push/PR.
 
 ## Bugs rencontrés
 
@@ -45,6 +46,47 @@ Auteur : I. (développement et intégration UI/SSR)
 ## Déploiement
 
 - Prod Vercel : https://movienight-iota.vercel.app/
+
+## Scaling (10K+ movies)
+
+Pour gérer un catalogue de 10K+ films, optimisations à mettre en place :
+
+**Mémoïsation React**
+
+- `React.memo` sur `MovieCardCarousel`, `MovieCardSearch` pour éviter re-renders inutiles.
+- `useMemo` pour les listes filtrées/triées (genres, cast, crew) dans les pages detail/credits.
+- `useCallback` pour les handlers de scroll/pagination dans les carrousels.
+
+**Virtualisation**
+
+- `react-window` ou `@tanstack/react-virtual` pour les grilles de recherche (100+ résultats).
+- Virtualiser les listes de cast/crew dans la page credits (scroll infini ou pagination côté client).
+
+**Pagination/Infini scroll**
+
+- API TMDB : limiter à 20-40 résultats par page, implémenter "load more" côté client.
+- Cache côté serveur (Next.js `revalidate`) + cache client (SWR/React Query) pour réduire les appels.
+
+**Code splitting**
+
+- Dynamic imports déjà en place (`next/dynamic`) pour HeroCarousel, MovieCarousel, MovieDetail.
+- Lazy load des sections credits/trailers uniquement si visibles (Intersection Observer).
+
+**Images**
+
+- Next.js Image avec `priority` uniquement pour le hero, lazy loading pour le reste.
+- CDN TMDB déjà utilisé, considérer un proxy/cache d’images si latence élevée.
+
+**State management**
+
+- Zustand actuel suffit pour le film courant/recherche.
+- Pour 10K+ : indexer les films côté client (Map/Set) pour recherche instantanée, ou déléguer au backend.
+
+**Backend/API**
+
+- Endpoints de recherche avec pagination, filtres (genre, année, rating), tri.
+- Cache Redis pour les requêtes fréquentes (trending, top rated).
+- Index Elasticsearch si recherche full-text nécessaire.
 
 ## Références utiles
 
