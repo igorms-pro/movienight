@@ -14,6 +14,9 @@ dependencies:
   baseui:
     specifier: ^12.2.0
     version: 12.2.0(@types/react@18.3.27)(react-dom@18.3.1)(react@18.3.1)(styletron-react@6.1.1)
+  gsap:
+    specifier: ^3.14.1
+    version: 3.14.1
   lucide-react:
     specifier: ^0.556.0
     version: 0.556.0(react@18.3.1)
@@ -3347,6 +3350,10 @@ packages:
     resolution: {integrity: sha512-DKKrynuQRne0PNpEbzuEdHlYOMksHSUI8Zc9Unei5gTsMNA2/vMpoMz/yKba50pejK56qj98qM0SjYxAKi13gQ==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
     dev: true
+
+  /gsap@3.14.1:
+    resolution: {integrity: sha512-nOFRJpVu+U0IPgKzfC5MEdZrJ1iVidGaOuxK0+Un+7vMOHa5rw/SKOaMaRRyHZiJKaeAEALTBwnj6R3gifyGBw==}
+    dev: false
 
   /has-bigints@1.1.0:
     resolution: {integrity: sha512-R3pbpkcIqv2Pm3dUwgjclDRVmWpTJW2DcMzcIhEXEx1oh/CEMObMm3KLmRJOdvhM7o4uQBnwr8pzRK2sJWIqfg==}

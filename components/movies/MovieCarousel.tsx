@@ -5,6 +5,7 @@ import { Button, KIND as BTN_KIND, SHAPE as BTN_SHAPE, SIZE as BTN_SIZE } from "
 import { ArrowLeft, ArrowRight } from "baseui/icon";
 import { Movie, MovieDetails } from "@/lib/tmdb/types";
 import MovieCardCarousel from "./MovieCardCarousel";
+import { useGsapFromTo, withScrollTrigger } from "@/lib/gsapClient";
 
 type Props = {
   movies: (Movie | MovieDetails)[];
@@ -26,6 +27,7 @@ export default function MovieCarousel({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
 
   const scroll = (direction: "left" | "right") => {
     if (!scrollContainerRef.current) return;
@@ -119,9 +121,23 @@ export default function MovieCarousel({
     scrollPosition <
       scrollContainerRef.current.scrollWidth - scrollContainerRef.current.clientWidth - 10;
 
+  useGsapFromTo([titleRef, scrollContainerRef], {
+    from: { autoAlpha: 0, y: 20 },
+    to: withScrollTrigger({
+      autoAlpha: 1,
+      y: 0,
+      duration: 0.6,
+      ease: "power2.out",
+      scrollTrigger: { trigger: titleRef.current ?? scrollContainerRef.current ?? undefined },
+    }),
+    stagger: 0.08,
+  });
+
   return (
     <div className="w-full mb-[60px]" data-testid="movie-carousel" data-title={title}>
-      <h2 className="text-2xl font-semibold mb-4 text-theme-primary">{title}</h2>
+      <h2 ref={titleRef} className="text-2xl font-semibold mb-4 text-theme-primary">
+        {title}
+      </h2>
       <div className="relative max-w-[1150px] mx-auto px-3 md:px-4">
         <div className="hidden md:block relative">
           <Button

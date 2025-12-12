@@ -1,10 +1,12 @@
 import { create } from "zustand";
 import { MovieDetails } from "@/lib/tmdb/types";
 
+type CurrentMovie = (Partial<MovieDetails> & { posterUrl?: string | null }) | null;
+
 type MovieState = {
-  currentMovie: MovieDetails | null;
+  currentMovie: CurrentMovie;
   searchQuery: string;
-  setCurrentMovie: (movie: MovieDetails | null) => void;
+  setCurrentMovie: (movie: CurrentMovie) => void;
   setSearchQuery: (query: string) => void;
   clear: () => void;
 };

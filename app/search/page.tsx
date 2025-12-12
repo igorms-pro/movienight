@@ -1,11 +1,12 @@
 "use client";
 
-import React, { Suspense, useEffect, useMemo, useState } from "react";
+import React, { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import MovieCardSearch from "@/components/movies/MovieCardSearch";
 import LoadingSpinner from "@/components/feedback/LoadingSpinner";
 import { tmdbApi } from "@/lib/tmdb/api";
 import { Movie } from "@/lib/tmdb/types";
+import { useGsapFromTo, withScrollTrigger } from "@/lib/gsapClient";
 
 function SearchPageContent() {
   const searchParams = useSearchParams();
@@ -15,6 +16,8 @@ function SearchPageContent() {
   const [totalResults, setTotalResults] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
+  const gridRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setPage(1);
@@ -44,10 +47,22 @@ function SearchPageContent() {
 
   const hasMore = useMemo(() => results.length < totalResults, [results.length, totalResults]);
 
+  useGsapFromTo([titleRef, gridRef], {
+    from: { autoAlpha: 0, y: 16 },
+    to: withScrollTrigger({
+      autoAlpha: 1,
+      y: 0,
+      duration: 0.5,
+      ease: "power2.out",
+      scrollTrigger: { trigger: titleRef.current ?? gridRef.current ?? undefined },
+    }),
+    stagger: 0.05,
+  });
+
   return (
     <div className="w-full max-w-[1180px] mx-auto px-3 md:px-0 pb-14" data-testid="search-page">
       <div className="mb-8">
-        <h1 className="text-[32px] font-semibold uppercase font-heading">
+        <h1 ref={titleRef} className="text-[32px] font-semibold uppercase font-heading">
           {query ? `${query}${totalResults ? ` — ${totalResults} résultats` : ""}` : "Recherche"}
         </h1>
         {error && <p className="text-red-400 mt-2">{error}</p>}
@@ -60,7 +75,10 @@ function SearchPageContent() {
       ) : null}
 
       {results.length > 0 && (
-        <div className="grid grid-cols-6 gap-6 max-[1400px]:grid-cols-5 max-[1200px]:grid-cols-4 max-[900px]:grid-cols-3 max-[640px]:grid-cols-2">
+        <div
+          ref={gridRef}
+          className="grid grid-cols-6 gap-6 max-[1400px]:grid-cols-5 max-[1200px]:grid-cols-4 max-[900px]:grid-cols-3 max-[640px]:grid-cols-2"
+        >
           {results.map((movie) => (
             <MovieCardSearch key={movie.id} movie={movie} />
           ))}

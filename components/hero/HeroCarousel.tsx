@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button, KIND, SIZE, SHAPE as BTN_SHAPE } from "baseui/button";
 import { Play, Info } from "lucide-react";
 import { MovieDetails } from "@/lib/tmdb/types";
+import { useGsapFromTo } from "@/lib/gsapClient";
+import { useMovieStore } from "@/store/movieStore";
 
 type Props = {
   movies: MovieDetails[];
@@ -14,6 +16,8 @@ type Props = {
 export default function HeroCarousel({ movies }: Props) {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const textRef = useRef<HTMLDivElement | null>(null);
+  const setCurrentMovie = useMovieStore((s) => s.setCurrentMovie);
 
   const displayMovies = movies.slice(0, 4);
 
@@ -29,10 +33,46 @@ export default function HeroCarousel({ movies }: Props) {
 
   const currentMovie = displayMovies[currentIndex];
 
+  useGsapFromTo(textRef, {
+    from: { autoAlpha: 0, y: 20 },
+    to: { autoAlpha: 1, y: 0, duration: 0.6, ease: "power2.out" },
+  });
+
+  useEffect(() => {
+    if (currentMovie) {
+      setCurrentMovie(currentMovie);
+      if (process.env.NODE_ENV !== "production") {
+        // eslint-disable-next-line no-console
+        console.info("[BG] hero setCurrentMovie", {
+          id: currentMovie.id,
+          title: currentMovie.title,
+          backdrop: currentMovie.backdrop_path,
+        });
+      }
+    }
+  }, [currentMovie, setCurrentMovie]);
+
   if (!currentMovie) return null;
+
+  const backdropUrl = currentMovie.backdrop_path
+    ? `https://image.tmdb.org/t/p/w1280${currentMovie.backdrop_path}`
+    : null;
 
   return (
     <div className="w-full mb-[60px] relative" data-testid="hero-carousel">
+      {backdropUrl && (
+        <div className="absolute inset-0 -z-10 overflow-hidden rounded-xl md:rounded-[18px]">
+          <div
+            className="absolute inset-0 scale-105 blur-[18px] brightness-50"
+            style={{
+              backgroundImage: `url(${backdropUrl})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.72)_0%,rgba(0,0,0,0.35)_50%,rgba(0,0,0,0.2)_100%)]" />
+        </div>
+      )}
       <div className="relative w-full overflow-hidden rounded-xl aspect-video max-h-[320px] min-h-[180px] md:max-h-[520px] md:min-h-[200px]">
         <div className="relative w-full h-full">
           {displayMovies.map((movie, index) => {
@@ -69,7 +109,10 @@ export default function HeroCarousel({ movies }: Props) {
         <div className="absolute inset-0 z-20 bg-[linear-gradient(to_right,rgba(0,0,0,0.8)_0%,rgba(0,0,0,0.4)_50%,transparent_100%)]" />
         <div className="absolute bottom-0 left-0 right-0 h-[140px] md:h-[200px] z-20 bg-[linear-gradient(to_top,rgba(0,0,0,0.9),transparent)]" />
 
-        <div className="absolute bottom-0 left-0 right-0 flex flex-col justify-end z-30 px-4 pb-5 md:px-8 md:pb-8">
+        <div
+          ref={textRef}
+          className="absolute bottom-0 left-0 right-0 flex flex-col justify-end z-30 px-4 pb-5 md:px-8 md:pb-8"
+        >
           <h1 className="text-2xl md:text-[48px] font-bold mb-3 md:mb-4 text-white uppercase max-w-[320px] md:max-w-[500px] leading-[1.1] font-heading">
             {currentMovie.title} ({new Date(currentMovie.release_date).getFullYear()})
           </h1>

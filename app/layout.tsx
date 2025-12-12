@@ -5,6 +5,7 @@ import Script from "next/script";
 import { Archivo_Narrow, Inter } from "next/font/google";
 import Providers from "@/components/Providers";
 import Header from "@/components/Header";
+import BackgroundLayer from "@/components/BackgroundLayer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -54,7 +55,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body>
         <div className="app-bg" />
-        <div className="app-hero" />
+        <BackgroundLayer />
         <Providers>
           <Suspense fallback={null}>
             <Header />
