@@ -168,7 +168,7 @@ export default function MovieCarousel({
             }}
             aria-label="Scroll left"
           >
-            <ArrowLeft size={24} color="var(--text-primary)" />
+            <ArrowLeft size={24} color="#101010" />
           </Button>
 
           <div
@@ -229,7 +229,7 @@ export default function MovieCarousel({
             }}
             aria-label="Scroll right"
           >
-            <ArrowRight size={24} color="var(--text-primary)" />
+            <ArrowRight size={24} color="#101010" />
           </Button>
         </div>
 
@@ -277,7 +277,7 @@ export default function MovieCarousel({
               aria-label="Précédent"
               data-testid="movie-carousel-mobile-prev"
             >
-              <ArrowLeft size={20} color="var(--text-primary)" />
+              <ArrowLeft size={20} color="#101010" />
             </Button>
             <Button
               onClick={() => handleMobileNav("right")}
@@ -288,7 +288,7 @@ export default function MovieCarousel({
               aria-label="Suivant"
               data-testid="movie-carousel-mobile-next"
             >
-              <ArrowRight size={20} color="var(--text-primary)" />
+              <ArrowRight size={20} color="#101010" />
             </Button>
           </div>
         </div>
