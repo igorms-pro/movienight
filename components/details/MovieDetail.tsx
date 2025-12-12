@@ -30,6 +30,11 @@ export function MovieDetail({ data }: Props) {
   const crewRef = useRef<HTMLDivElement | null>(null);
   const setCurrentMovie = useMovieStore((s) => s.setCurrentMovie);
 
+  const scrollToTop = () => {
+    if (typeof window === "undefined") return;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const backdropUrl = movie.posterUrl;
 
   useGsapFromTo([titleRef, synopsisRef, crewRef], {
@@ -47,14 +52,6 @@ export function MovieDetail({ data }: Props) {
   // Update global background
   React.useEffect(() => {
     setCurrentMovie(movie);
-    if (process.env.NODE_ENV !== "production") {
-      // eslint-disable-next-line no-console
-      console.info("[BG] detail setCurrentMovie", {
-        id: movie.id,
-        title: movie.title,
-        posterUrl: movie.posterUrl,
-      });
-    }
     return () => setCurrentMovie(null);
   }, [movie, setCurrentMovie]);
 
@@ -194,6 +191,21 @@ export function MovieDetail({ data }: Props) {
       <MovieTrailers trailers={trailers} />
 
       <MovieCast cast={cast} totalCastCount={totalCastCount} movieId={movie.id} />
+
+      <button
+        type="button"
+        onClick={scrollToTop}
+        className="md:hidden fixed bottom-6 right-4 z-30 w-11 h-11 rounded-full border flex items-center justify-center shadow-lg"
+        style={{
+          backgroundColor: "var(--surface-strong)",
+          color: "var(--text-primary)",
+          borderColor: "var(--border-strong)",
+        }}
+        aria-label="Remonter en haut"
+        data-testid="movie-scroll-top"
+      >
+        ↑
+      </button>
     </div>
   );
 }
