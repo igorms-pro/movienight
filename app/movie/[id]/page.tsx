@@ -1,3 +1,4 @@
+import React from "react";
 import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
 const MovieDetail = dynamic(() => import("@/components/details/MovieDetail"), { ssr: false });
