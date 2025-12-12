@@ -7,7 +7,11 @@ vi.mock("next/image", () => ({
   __esModule: true,
   default: (props: React.ComponentProps<"img">) => {
     // Strip Next-specific props to avoid React DOM warnings in tests
-    const { alt, ...rest } = props as Record<string, unknown>;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { alt, fill, priority, quality, unoptimized, loader, sizes, ...rest } = props as Record<
+      string,
+      unknown
+    >;
     return React.createElement("img", {
       ...rest,
       alt: alt ?? "",

@@ -3,13 +3,6 @@ import { render, screen, fireEvent, waitFor, within } from "@testing-library/rea
 import MovieCarousel from "@/components/movies/MovieCarousel";
 import { Movie } from "@/lib/tmdb/types";
 
-vi.mock("next/image", () => ({
-  default: (props: React.ComponentProps<"img">) => {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img alt={props.alt ?? ""} {...props} />;
-  },
-}));
-
 vi.mock("next/navigation", () => ({
   useRouter: () => ({
     push: vi.fn(),

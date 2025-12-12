@@ -5,11 +5,6 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import MovieCredits from "@/components/details/MovieCredits";
 import { CastMember, Credits, MovieDetails } from "@/lib/tmdb/types";
 
-vi.mock("next/image", () => ({
-  __esModule: true,
-  default: (props: React.ComponentProps<"img">) => <img {...props} alt={props.alt ?? ""} />,
-}));
-
 const openMock = vi.fn();
 window.open = openMock as unknown as typeof window.open;
 

@@ -11,13 +11,6 @@ vi.mock("next/navigation", () => ({
   }),
 }));
 
-vi.mock("next/image", () => ({
-  default: (props: React.ComponentProps<"img">) => {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img alt={props.alt ?? ""} {...props} />;
-  },
-}));
-
 const movie: Movie = {
   id: 42,
   title: "Example",

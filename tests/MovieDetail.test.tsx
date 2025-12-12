@@ -15,11 +15,6 @@ vi.mock("next/navigation", () => ({
   }),
 }));
 
-vi.mock("next/image", () => ({
-  __esModule: true,
-  default: (props: React.ComponentProps<"img">) => <img {...props} alt={props.alt ?? ""} />,
-}));
-
 const makeTrailer = (id: string, type: string): Video => ({
   id,
   key: `key-${id}`,
