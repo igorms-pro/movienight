@@ -122,7 +122,8 @@ export default function MovieCarousel({
       scrollContainerRef.current.scrollWidth - scrollContainerRef.current.clientWidth - 10;
 
   useGsapFromTo([titleRef, scrollContainerRef], {
-    from: { autoAlpha: 0, y: 20 },
+    // Keep visible to avoid initial blink during hydration
+    from: { autoAlpha: 1, y: 20 },
     to: withScrollTrigger({
       autoAlpha: 1,
       y: 0,
