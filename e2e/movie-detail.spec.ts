@@ -12,8 +12,8 @@ async function mockMovieDetail(page: Page, movieId = 1) {
     ],
     release_date: "2025-11-26",
     vote_average: 7.8,
-    poster_path: "/poster.jpg",
-    backdrop_path: "/backdrop.jpg",
+    poster_path: `/poster-${movieId}.jpg`,
+    backdrop_path: `/backdrop-${movieId}.jpg`,
     videos: {
       results: [
         { id: "tr1", key: "abc123", name: "Bande-annonce", site: "YouTube", type: "Trailer" },
@@ -77,5 +77,27 @@ test.describe("Movie detail page", () => {
     await page.getByTestId("movie-cast-see-all").click();
     await expect(page).toHaveURL(/\/movie\/1\/credits/);
     await expect(page.getByTestId("credits-page")).toBeVisible();
+  });
+
+  test("mobile trailers open and scroll-to-top works", async ({ page }) => {
+    await mockMovieDetail(page, 2);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/movie/2");
+
+    await expect(page.getByTestId("background-layer")).toBeVisible();
+    await expect(page.getByTestId("background-image")).toHaveAttribute(
+      "data-current-url",
+      /backdrop-2\.jpg$/,
+    );
+
+    const [popup] = await Promise.all([
+      page.waitForEvent("popup"),
+      page.getByTestId("trailer-mobile-card-0").click(),
+    ]);
+    expect(popup.url()).toContain("youtube.com/watch?v=abc123");
+
+    await page.evaluate(() => window.scrollTo(0, 600));
+    await page.getByTestId("movie-scroll-top").click();
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(50);
   });
 });

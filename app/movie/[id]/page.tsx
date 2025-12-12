@@ -24,8 +24,8 @@ function buildMockMovie(id: number): MovieDetailView {
     ],
     release_date: "2025-11-26",
     vote_average: 7.8,
-    poster_path: "/poster.jpg",
-    backdrop_path: "/backdrop.jpg",
+    poster_path: `/poster-${id}.jpg`,
+    backdrop_path: `/backdrop-${id}.jpg`,
     videos: {
       results: [
         {
@@ -91,6 +91,8 @@ function buildMockMovie(id: number): MovieDetailView {
       certification,
       userRating: Math.round(mock.vote_average * 10),
       posterUrl,
+      poster_path: mock.poster_path,
+      backdrop_path: mock.backdrop_path,
     },
     trailers,
     crewBuckets,
@@ -128,6 +130,8 @@ async function getMovieData(id: number): Promise<MovieDetailView | null> {
         certification,
         userRating: Math.round(movie.vote_average * 10),
         posterUrl,
+        poster_path: movie.poster_path,
+        backdrop_path: movie.backdrop_path,
       },
       trailers,
       crewBuckets,

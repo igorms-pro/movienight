@@ -15,8 +15,8 @@ const makeMovie = (id: number): Movie => ({
   id,
   title: `Mock Movie ${id}`,
   overview: "Overview",
-  poster_path: "/poster.jpg",
-  backdrop_path: "/backdrop.jpg",
+  poster_path: `/poster-${id}.jpg`,
+  backdrop_path: `/backdrop-${id}.jpg`,
   release_date: "2025-11-26",
   vote_average: 7.5,
   vote_count: 100,
@@ -90,8 +90,15 @@ export const tmdbApi = {
 
   searchMovies: (query: string, page: number = 1) => {
     if (isE2EMock) {
-      const results = [13, 14].map((id) => ({ ...makeMovie(id), title: `${query} ${id}` }));
-      return Promise.resolve({ results, page, total_pages: 1, total_results: results.length });
+      const base = (page - 1) * 3;
+      const ids = [base + 13, base + 14, base + 15];
+      const results = ids.map((id) => ({ ...makeMovie(id), title: `${query} ${id}` }));
+      return Promise.resolve({
+        results,
+        page,
+        total_pages: 2,
+        total_results: 6,
+      });
     }
     return request<SearchResponse>("/search/movie", { params: { query, page } });
   },

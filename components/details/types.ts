@@ -11,6 +11,8 @@ export type MovieDetailView = {
     certification: string | null;
     userRating: number;
     posterUrl: string | null;
+    poster_path?: string | null;
+    backdrop_path?: string | null;
   };
   trailers: Video[];
   crewBuckets: CrewBucket[];

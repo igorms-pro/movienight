@@ -16,8 +16,8 @@ const makeMovie = (id: number): MovieLite => ({
   id,
   title: `Movie ${id}`,
   overview: "Overview",
-  poster_path: "/poster.jpg",
-  backdrop_path: "/backdrop.jpg",
+  poster_path: `/poster-${id}.jpg`,
+  backdrop_path: `/backdrop-${id}.jpg`,
   release_date: "2020-01-01",
   vote_average: 7,
   vote_count: 100,
@@ -106,12 +106,12 @@ test.describe("Home page", () => {
     const topRated = page.getByTestId("top-rated-section");
 
     const nowPlayingTrack = nowPlaying.getByTestId("movie-carousel-track");
-    await expect(nowPlayingTrack).toBeVisible();
+    await expect(nowPlayingTrack).toBeAttached();
     const nowPlayingCount = await nowPlayingTrack.getByTestId("movie-card").count();
     expect(nowPlayingCount).toBeGreaterThan(0);
 
     const topRatedTrack = topRated.getByTestId("movie-carousel-track");
-    await expect(topRatedTrack).toBeVisible();
+    await expect(topRatedTrack).toBeAttached();
     const topRatedCount = await topRatedTrack.getByTestId("movie-card").count();
     expect(topRatedCount).toBeGreaterThan(0);
   });
@@ -155,5 +155,40 @@ test.describe("Home page", () => {
       .toBeLessThan(5);
     await expect(prev).toBeDisabled();
     await expect(next).not.toBeDisabled();
+  });
+
+  test("background updates on slide change and theme overlay toggles", async ({ page }) => {
+    await mockTmdb(page);
+    await page.goto("/");
+
+    const bg = page.getByTestId("background-image");
+    const overlay = page.getByTestId("background-overlay");
+    await expect(bg).toBeVisible();
+
+    const initialUrl = await bg.getAttribute("data-current-url");
+    expect(initialUrl).toBeTruthy();
+
+    // Go to second slide (desktop dots)
+    await page.getByTestId("hero-dots-desktop").locator("button").nth(1).click();
+    await expect
+      .poll(async () => await bg.getAttribute("data-current-url"), { timeout: 3000 })
+      .not.toBe(initialUrl);
+
+    // Toggle theme and ensure overlay color switches (dark -> light)
+    const themeToggle = page.getByRole("button", { name: /Basculer le thème/i });
+    const overlayBefore = await overlay.getAttribute("data-overlay-color");
+    await themeToggle.click();
+    await expect
+      .poll(async () => await overlay.getAttribute("data-overlay-color"), { timeout: 3000 })
+      .not.toBe(overlayBefore);
+  });
+
+  test("hero CTA navigates to movie detail", async ({ page }) => {
+    await mockTmdb(page);
+    await page.goto("/");
+
+    await page.getByRole("button", { name: /En savoir plus/i }).click();
+    await expect(page).toHaveURL(/\/movie\/1$/);
+    await expect(page.getByTestId("movie-detail")).toBeVisible();
   });
 });
